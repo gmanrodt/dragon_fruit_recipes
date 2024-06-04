@@ -1,6 +1,7 @@
 import './App.css';
 import { useState } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import AppProvider from './providers/AppProvider'
 
 
 import HomePage from './pages/HomePage';
@@ -20,7 +21,7 @@ function App() {
 
 
   return (
-    <>
+    <AppProvider>
       <BrowserRouter>
         <Header />
         <Routes>
@@ -37,7 +38,7 @@ function App() {
         <Footer />
       </BrowserRouter>
 
-    </>
+    </AppProvider>
   )
 }
 

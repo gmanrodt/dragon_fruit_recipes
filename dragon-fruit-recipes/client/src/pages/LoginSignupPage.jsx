@@ -1,5 +1,6 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom";
+import { validateEmail, checkPassword } from '../utils/helpers';
 
 
 export default function AuthPage(){
@@ -14,6 +15,11 @@ export default function AuthPage(){
         setFormData({ signupUsername: "", signupEmail: "", signupPassword: "", loginUsername: "", loginPassword: "" })
     }
 
+
+    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
     const [message, setMessage] = useState("");
 
     function handleInputChange(event){
@@ -25,6 +31,16 @@ export default function AuthPage(){
 
     async function handleSignup(event){
         event.preventDefault()
+        if (!username) {
+            setErrorMessage('Username is required');
+            return;
+          } if (!validateEmail(email)) {
+            setErrorMessage('Email is invalid');
+            return;
+          } if (!password) {
+            setErrorMessage('Password is required');
+            return;
+          }
         try {
             const response = await fetch("/api/user", {
                 method: 'POST',
@@ -47,6 +63,16 @@ export default function AuthPage(){
 
     async function handleLogin(event){
         event.preventDefault()
+        if (!username) {
+            setErrorMessage('Username is required');
+            return;
+          } if (!validateEmail(email)) {
+            setErrorMessage('Email is invalid');
+            return;
+          } if (!checkPassword(password)) {
+            setErrorMessage('Password does not match');
+            return;
+          }
         try {
             const response = await fetch("/api/user/login", {
                 method: 'POST',

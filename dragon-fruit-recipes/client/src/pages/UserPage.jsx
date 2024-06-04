@@ -2,6 +2,7 @@ import React, { useState, useEffect, useLocation } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import { useNavigate } from 'react-router-dom';
+import UserNav from '../componets/UserPageNav'
 
 // import UserInfoPage from '../pages/UserInfoPage';
 // import ViewCreatedRecipe from '../pages/ViewCreatedRecipe';
@@ -15,13 +16,10 @@ export default function UserPage() {
     //     navigate('/user');
     // }, []);
 
-    return (
-        // <Routes>
-        //     <Route path="/userinfo" element={<UserInfoPage />} />
-        //     <Route path="/created" element={<ViewCreatedRecipe />} />
-        //     <Route path="/saved" element={<VeiwSavedRecipe />} />
-        // </Routes>     
-        <></>   
+    return(
+        <>
+        <UserNav/>
+        </>
     )
 
 }

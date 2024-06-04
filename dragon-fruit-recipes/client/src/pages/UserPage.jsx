@@ -1,17 +1,25 @@
 import React, { useState, useEffect, useLocation } from "react";
-import { NavLink  } from 'react-router-dom';
+import { Routes, Route } from "react-router-dom";
 
+import { useNavigate } from 'react-router-dom';
+import UserNav from '../componets/UserPageNav'
+
+// import UserInfoPage from '../pages/UserInfoPage';
+// import ViewCreatedRecipe from '../pages/ViewCreatedRecipe';
+// import VeiwSavedRecipe from '../pages/ViewSavedRecipe';
 
 export default function UserPage() {
 
-    const navigate = useNavigate();
-    useEffect(() => {
-        // Call navigate() inside the useEffect hook
-        navigate('/user');
-    }, []);
+    // const navigate = useNavigate();
+    // useEffect(() => {
+    //     // Call navigate() inside the useEffect hook
+    //     navigate('/user');
+    // }, []);
 
     return(
-        cat  = "moew"
+        <>
+        <UserNav/>
+        </>
     )
 
 }

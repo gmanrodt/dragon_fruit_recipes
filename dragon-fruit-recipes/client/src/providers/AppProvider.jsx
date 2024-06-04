@@ -14,15 +14,15 @@ export default function AppProvider(props){
       const response = await fetch("/api/user/verify");
       const foundUser = await response.json();
       console.log(foundUser)
-
+      setCurrentUser(foundUser)
     }
   }
-  // useEffect(() => {
-  //   verifyUser()
-  // },[])
-  // return(
-  //   <AppContext.Provider value={{ storeName, setStoreName }}>
-  //     { props.children }
-  //   </AppContext.Provider>
-  // )
+  useEffect(() => {
+    verifyUser()
+  },[])
+  return(
+    <AppContext.Provider value={{ currentUser }}>
+      { props.children }
+    </AppContext.Provider>
+  )
 }

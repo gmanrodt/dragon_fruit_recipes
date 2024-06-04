@@ -22,7 +22,7 @@ module.exports = {
       };
       res.status(200).json(review);
     } catch(err) {
-      res.status(500).json({msg: "Get reviews: " + err.message});
+      res.status(500).json({msg: "Get review: " + err.message});
     };
   },
 
@@ -31,14 +31,7 @@ module.exports = {
     try {
       const review = await Review.create(req.body);
       const token = await createToken(review);
-      res
-        .status(200)
-        .cookie("auth-cookie", token, {
-          maxAge: 86400 * 1000, // 24 hour token
-          httpOnly: false,
-          secure: process.env.NODE_ENV === "production"
-        })
-        .json(review);
+      res.status(200).json(review);
     } catch(err) {
       res.status(500).json({msg: "Create review: " + err.message});
     };

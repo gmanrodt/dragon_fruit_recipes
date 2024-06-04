@@ -1,4 +1,5 @@
 // Requiring in express and controllers
+const router = require("express").Router();
 const {
   getReview,
   getReviews,
@@ -6,7 +7,6 @@ const {
   updateReview,
   deleteReview
 } = require("../../controllers/review-controllers");
-const router = require("./users");
 
 // All route
 router
@@ -19,7 +19,10 @@ router
   .route("/reviewId")
   .get(getReview)
   .put(updateReview)
-  .delete(deleteReview)
+  .delete(deleteReview);
+
+// Invalid route
+router.use((req, res) => res.send("Invalid Route"));
 
 // Exporting
 module.exports = router;

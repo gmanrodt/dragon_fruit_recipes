@@ -32,7 +32,7 @@ module.exports = {
       };
       res.status(200).json(user);
     } catch(err) {
-      res.status(500).json({msg: "Get users: " + err.message});
+      res.status(500).json({msg: "Get user: " + err.message});
     };
   },
 

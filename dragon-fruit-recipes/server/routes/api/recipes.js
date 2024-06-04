@@ -1,4 +1,5 @@
 // Requiring in express and controllers
+const router = require("express").Router();
 const {
   getRecipe,
   getRecipes,
@@ -6,7 +7,6 @@ const {
   updateRecipe,
   deleteRecipe
 } = require("../../controllers/recipe-controllers");
-const router = require("./users");
 
 // All route
 router
@@ -20,6 +20,9 @@ router
   .get(getRecipe)
   .put(updateRecipe)
   .delete(deleteRecipe);
+
+// Invalid route
+router.use((req, res) => res.send("Invalid Route"));
 
 // Exporting
 module.exports = router;

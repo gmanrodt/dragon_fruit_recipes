@@ -1,5 +1,5 @@
 // Requiring in express and controllers
-const router = require("../../../../../../inclass/mini-projects/dizzy-store/server/routes/api/products");
+const router = require("express").Router();
 const {
   getUser,
   getUsers,
@@ -16,6 +16,13 @@ router
   .get(getUsers)
   .post(createUser);
 
+// Single Route
+router
+  .route("/:userId")
+  .get(getUser)
+  .put(updateUser)
+  .delete(deleteUser);
+
 // Login route
 router
   .route("/login")
@@ -26,12 +33,8 @@ router
   .route("/verify")
   .post(verifyUser);
 
-// Single Route
-router
-  .route("/:userId")
-  .get(getUser)
-  .put(updateUser)
-  .delete(deleteUser);
+// Invalid route
+router.use((req, res) => res.send("Invalid Route"));
 
 // Exporting
 module.exports = router;

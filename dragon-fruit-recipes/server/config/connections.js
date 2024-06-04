@@ -1,7 +1,9 @@
-const { connect, connection } = require('mongoose');
+// Requiring in mongoose
+const {connect, connection} = require("mongoose");
+const connectionString = "mongodb://127.0.0.1:27017/dragonFruitDelightsDB";
 
-const connectionString = 'mongodb://127.0.0.1:27017/socialNetworkDB';
-
+// Connection
 connect(connectionString);
 
+// Exporting
 module.exports = connection;

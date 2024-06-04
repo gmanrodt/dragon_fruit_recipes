@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useLocation } from "react";
 import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import addFormFeilds from "../componets/AddFormFields";
 
 export default function CreateRecipe() {
 
@@ -9,6 +10,14 @@ export default function CreateRecipe() {
         // Call navigate() inside the useEffect hook
         navigate('/create');
     }, []);
+
+
+    const [inputIngredient, setInputIngredient] = useState([]);
+
+    const addFields = () => {
+        setInputIngredient([...inputIngredient, <addFormFeilds key={inputIngredient.length} />])
+    }
+
 
     return (
         <>
@@ -37,15 +46,11 @@ export default function CreateRecipe() {
                 <textarea type="text" id="instructions" placeholder="Please enter Instructions" />
                 <div className="ingredientList">
                     <div className="rowStyling">
-                        <label for="ingredient">Ingredient</label>
-                        <input type="text" id="" placeholder="Add Ingredient" />
 
-                        <label for="measurement">Measurement</label>
-                        <input type="" id="" placeholder="Add Measurement" />
                     </div>
-                    {/* <button onClick={  }>Add Another Ingredient</button> */}
+                    <button onClick={ addFields }>Add Another Ingredient</button>
                 </div>
-                
+
             </form>
         </>
     )

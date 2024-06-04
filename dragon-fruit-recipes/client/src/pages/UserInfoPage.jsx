@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
+
+
 
 export default function UserInfoPage() {
-    const history = useHistory();
+    const navigateTo = useNavigate();
     const [userData, setUserData] = useState({});
 
     useEffect(() => {
@@ -18,7 +20,7 @@ export default function UserInfoPage() {
         .then(response => {
             if (response.ok) {
                 // Update the UI or navigate to a different page after deletion
-                history.push('/'); // Redirect to the homepage
+                navigateTo.push('/'); // Redirect to the homepage
             } else {
                 console.log('Error deleting user');
             }

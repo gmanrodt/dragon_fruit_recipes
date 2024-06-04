@@ -38,7 +38,7 @@ export default function Header() {
          <h1 className="flex">DragonFruit Delights</h1> 
             <div>
                <NavLink to="/login">   Login/Sign up   |</NavLink>
-               <NavLink to="/profile">   Profile   |</NavLink>
+               <NavLink to="/user">   Profile   |</NavLink>
             </div>
             <div>
                <NavLink to="/">Home   |</NavLink>

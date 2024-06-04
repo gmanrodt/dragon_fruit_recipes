@@ -17,12 +17,12 @@ export default function AppProvider(props){
 
     }
   }
-  useEffect(() => {
-    verifyUser()
-  },[])
-  return(
-    <AppContext.Provider value={{ storeName, setStoreName }}>
-      { props.children }
-    </AppContext.Provider>
-  )
+  // useEffect(() => {
+  //   verifyUser()
+  // },[])
+  // return(
+  //   <AppContext.Provider value={{ storeName, setStoreName }}>
+  //     { props.children }
+  //   </AppContext.Provider>
+  // )
 }

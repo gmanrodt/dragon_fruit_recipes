@@ -11,7 +11,7 @@ export default function UserPage() {
     }, []);
 
     return(
-        cat  = "moew"
+        cat = meow
     )
 
 }

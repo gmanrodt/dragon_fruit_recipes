@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useLocation } from "react";
 import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-
+//fixed
 export default function HomePage() {
 
     const navigate = useNavigate();

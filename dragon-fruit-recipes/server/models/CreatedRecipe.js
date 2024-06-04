@@ -2,9 +2,9 @@ const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 const bcrypt= require('bcrypt');
 
-class CreatedRecipes extends Model {}
+class CreatedRecipe extends Model {}
 
-CreatedRecipes.init(
+CreatedRecipe.init(
     {
         id: {
             type: DataTypes.INTEGER,
@@ -26,6 +26,15 @@ CreatedRecipes.init(
         },
         picture:{
 
-        }
+        },
+       
+    },
+    {
+        sequelize,
+        underscored: true,
+        freezeTableName: true,
+        modelName: 'createdrecipe'
     }
-)
+);
+
+module.exports= CreatedRecipe;

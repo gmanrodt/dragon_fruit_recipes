@@ -1,12 +1,13 @@
-// Requring in model
+// Requring in model, bcrypt, jwt, and dotenv
 const User = require("../models/User-model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+require("dotenv").config()
 
 // Function to create a token
 async function createToken(user) {
   const tokenData = {email: user.email};
-  const token = await jwt.sign(tokenData);
+  const token = await jwt.sign(tokenData, process.env.TOKEN_ENCRYPT_KEY);
   return token;
 };
 
@@ -66,7 +67,7 @@ module.exports = {
       };
       res.status(200).json(user);
     } catch(err) {
-      res.status(500).json({msg: "Update user" + err.message});
+      res.status(500).json({msg: "Update user: " + err.message});
     };
   },
 
@@ -74,6 +75,33 @@ module.exports = {
   async deleteUser(req, res) {
     try {
       const user = await User.findOneAndDelete({_id: req.params.userId});
-    }
-  }
+      if(!user) {
+        res.status(404).json({msg: "No user found with that ID"});
+      };
+      res.status(200).json({msg: "User successfully deleted"})
+    } catch(err) {
+      res.status(500).json({msg: "Delete user: " + err.message});
+    };
+  },
+
+  // Login user
+  async loginUser(req, res) {
+    try {
+      const user = await User.findOne({email: req.body.email});
+      if(!(await bcrypt.compare(req.body.password, user.password))) throw new Error();
+      const token = await createToken(user);
+      res
+        .status(200)
+        .cookie("auth-cookie", token, {
+          maxAge: 86400 * 1000, // 24 hour token
+          httpOnly: false,
+          secure: process.env.NODE_ENV === "production"
+        })
+        .json(user)
+    } catch(err) {
+      res.status(500).json({msg: "Login user: " + err.message});
+    };
+  },
+
+  
 }

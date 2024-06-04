@@ -103,5 +103,11 @@ module.exports = {
     };
   },
 
-  
+  async verifyUser(req, res) {
+    const cookie = req.cookies["auth-cookie"];
+    if(!cookie) {
+      res.status(500).json({msg: "Could not authenticate user"});
+    };
+    
+  }
 }

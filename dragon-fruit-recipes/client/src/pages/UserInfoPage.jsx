@@ -29,6 +29,7 @@ export default function UserInfoPage() {
     };
 
     return (
+        <>
         <div className="amUserInfo">
             <div>Username: {userData.userName}</div>
             <div>Email: {userData.email}</div>
@@ -36,5 +37,6 @@ export default function UserInfoPage() {
             <div>You have created {userData.createdRecipes} recipes!</div>
             <button onClick={() => handleDeleteUser(userData.userId)}>Delete User</button>
         </div>
+        </>
     );
 }

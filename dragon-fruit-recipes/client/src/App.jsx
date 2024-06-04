@@ -13,6 +13,8 @@ import UserInfo from './pages/UserPage';
 import ViewCreatedRecipe from './pages/ViewCreatedRecipe';
 import VeiwSavedRecipe from './pages/ViewSavedRecipe';
 
+import Header from './componets/Header';
+import Footer from './componets/Footer';
 
 function App() {
 
@@ -20,6 +22,7 @@ function App() {
   return (
     <>
       <BrowserRouter>
+      <Header/>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginSignup />} />
@@ -31,6 +34,7 @@ function App() {
           <Route path="/created" element={<ViewCreatedRecipe />} />
           <Route path="/saved" element={<VeiwSavedRecipe />} />
         </Routes>
+        <Footer/>
       </BrowserRouter>
 
     </>

@@ -40,7 +40,7 @@ export default function AuthPage(){
           } if (!password) {
             setErrorMessage('Password is required');
             return;
-          }
+          } 
         try {
             const response = await fetch("/api/user", {
                 method: 'POST',

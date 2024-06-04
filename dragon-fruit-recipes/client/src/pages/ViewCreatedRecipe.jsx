@@ -1,18 +1,17 @@
-import React, { useState, useEffect, useLocation } from "react";
-import { NavLink  } from 'react-router-dom';
+import React, { useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 
-export default function UserPage() {
-
+export default function ViewCreatedRecipe() {
+    
     const navigate = useNavigate();
     useEffect(() => {
         // Call navigate() inside the useEffect hook
-        navigate('/user');
+        navigate('/created');
     }, []);
 
     return(
         <>
-        </>
+       </>
     )
 
 }

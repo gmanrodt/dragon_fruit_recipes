@@ -12,6 +12,7 @@ export default function VeiwSavedRecipe() {
 
     return(
        <>
+       <h1>Saved Recipes page</h1>
        </>
     )
 

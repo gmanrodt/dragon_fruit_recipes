@@ -11,6 +11,7 @@ export default function ViewCreatedRecipe() {
 
     return(
         <>
+        <h1>Created Recipes page</h1>
        </>
     )
 

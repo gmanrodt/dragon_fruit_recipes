@@ -10,6 +10,11 @@ export default function RecipeSearch() {
         navigate('/search');
     }, []);
 
+    const search = searchResults();
+    useEffect(() => {
+        navigate("/SearchResult");   // unsure if this is right. trying to redirect user to the page with listed results
+    }, []);
+
     return (
         <>
             <Form className="border p-3">

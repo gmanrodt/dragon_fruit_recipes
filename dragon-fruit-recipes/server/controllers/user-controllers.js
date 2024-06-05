@@ -16,7 +16,10 @@ module.exports = {
   // Get all users
   async getUsers(req, res) {
     try {
-      const user = await User.find();
+      const user = await User.find()
+        .populate({path: "savedRecipes"})
+        .populate({path: "createdRecipes"})
+        .populate({path: "review"});
       res.status(200).json(user);
     } catch(err) {
       res.status(500).json({msg: "Get users: " + err.message});
@@ -26,7 +29,10 @@ module.exports = {
   // Get single user
   async getUser(req, res) {
     try {
-      const user = await User.findOne({_id: req.params.userId});
+      const user = await User.findOne({_id: req.params.userId})
+        .populate({path: "savedRecipes"})
+        .populate({path: "createdRecipes"})
+        .populate({path: "review"});
       if(!user) {
         res.status(404).json({msg: "No user found with that ID"});
       };

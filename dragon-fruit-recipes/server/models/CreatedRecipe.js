@@ -19,11 +19,11 @@ const recipeSchema = new mongoose.Schema(
 			required: true
 		},
 		ingredients: {
-			type: String,
+			type: [String],
 			required: true
 		},
-		measurment: {
-			type: String,
+		measurements: {
+			type: [String],
 			required: true
 		},
 		picture: {

@@ -16,7 +16,7 @@ router
 
 // Single route
 router
-  .route("/reviewId")
+  .route("/:reviewId")
   .get(getReview)
   .put(updateReview)
   .delete(deleteReview);

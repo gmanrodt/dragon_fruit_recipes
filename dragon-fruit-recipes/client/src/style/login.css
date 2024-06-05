@@ -3,14 +3,18 @@
    justify-content: center;
 }
 
-.signupForm, .loginForm {
+.signupForm, #logForm {
    margin: 5px;
+   border: 2px solid hsl(335, 86%, 37%);
+   border-radius: 10%;
+   padding: 20px;
+   min-width: 325px;
 }
 
 .signupForm {
    margin-right: 5vw;
 }
 
-.loginForm {
+#logForm {
    margin-left: 5vw;
 }

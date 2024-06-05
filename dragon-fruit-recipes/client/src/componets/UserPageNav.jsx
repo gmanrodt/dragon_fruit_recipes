@@ -13,14 +13,17 @@ export default function UserPageNav(){
      <div>
        <nav>
              <div>
+
                 <NavLink to="/">User Info   </NavLink>
                 <span>|</span>
                 <NavLink to="/created">   Created Recipes  </NavLink>
                 <span>|</span>
                 <NavLink to="/saved">   Saved Recipes   </NavLink>
+
              </div>
        </nav>
        
      </div>
    );
+
 }

@@ -36,6 +36,8 @@ export default function HomePage() {
             {/* <div class="loader"></div> */}
             <div className='about'>
                 <p> Welcome to DragonFruit Delights! This is a page for finding new recipes and sharing your own. Log in or sign up to contribute to our cooking community! </p>
+
+          
             </div>
             <div className="recipe-card-container">
                 <div className='recipe-card'>

@@ -1,15 +1,15 @@
-const mongoose = require('mongoose'); 
+const mongoose = require('mongoose');
 
 
-const reviewSchema= new mongoose.Schema ({
-        rating: {
-            type: DataTypes.INTEGER
-        },
-        comments: {
-            type: DataTypes.STRING
-        },
-    
+const reviewSchema = new mongoose.Schema({
+    rating: {
+        type: DataTypes.INTEGER
     },
+    comments: {
+        type: DataTypes.STRING
+    },
+
+},
     {
         id: false,
         versionKey: false

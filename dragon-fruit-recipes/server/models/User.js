@@ -1,12 +1,10 @@
-const mongoose = require('mongoose');
+// Requiring in mongoose and bcrypt
+const {Schema, model} = require('mongoose');
+const bcrypt = require("bcrypt");
 
-
+// User model template
 const userSchema = new Schema(
   {
-    userId: {
-      type: Schema.Types.ObjectId,
-      default: () => new Types.ObjectId(),
-    },
     username: {
       type: String,
       required: true,
@@ -15,28 +13,43 @@ const userSchema = new Schema(
     email: {
       type: String,
       required: true,
-      max_length: 50,
+      match: [
+        /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+        "Please enter a valid email address",
+      ],
     },
-    savedRecipe: {
-      type: String,
-    },
-    review: {
-      type: String,
-      required: true,
-      max_length: 50,
-    },
-    createdRecipes: {
+    password: {
       type: String,
       required: true,
-      max_length: 50,
+      min_length: 8,
     },
+    savedRecipes: [{
+      type: Schema.Types.ObjectId,
+      ref: "saved",
+    }],
+    review: [{
+      type: Schema.Types.ObjectId,
+      ref: "review",
+    }],
+    createdRecipes: [{
+      type: Schema.Types.ObjectId,
+      ref: "recipe",
+    }],
   },
   {
-    toJSON: {
-      getters: true,
-    }
-  }
+    id: false,
+    versionKey: false,
+  },
 );
 
-const User = new mongoose.model("user", userSchema);
+// Hashing of password
+userSchema.pre("save", async function(next){
+  this.password = await bcrypt.hash(this.password, 10);
+  next()
+})
+
+// Creation of model from schema
+const User = new model("user", userSchema);
+
+// Exporting model
 module.exports = User;

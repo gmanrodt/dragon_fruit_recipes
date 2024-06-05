@@ -1,38 +1,44 @@
-const mongoose = require('mongoose'); 
+// Requring in mongoose
+const mongoose = require('mongoose');
 
-const recipeSchema= new mongoose.Schema ({
-    title:{
-        type: string,
-        require: true,
-        unique: true,
-    },
-    category:{
-        type: string,
-        required: true
-    },
-    instructions:{
-        type: string,
-        required: true
-    },
-    ingredients:{
-        type: string,
-        required: true
-    },
-    measurment:{
-        type: integer,
-        required:true
-    },
-    picture:{
+// Recipe model template
+const recipeSchema = new mongoose.Schema(
+	{
+		title: {
+			type: String,
+			required: true,
+			unique: true,
+		},
+		category: {
+			type: String,
+			required: true,
+			enum: ["Beef","Breakfast","Chicken","Dessert","Goat","Lamb","Miscellaneous","Pasta","Pork","Seafood","Side","Starter","Vegan", "Vegetarian"]
+		},
+		instructions: {
+			type: String,
+			required: true
+		},
+		ingredients: {
+			type: String,
+			required: true
+		},
+		measurment: {
+			type: String,
+			required: true
+		},
+		picture: {
 
-    },
+		},
+	},
+	{
+		id: false,
+		versionKey: false
+	}
+);
 
-},
-{
-    id: false,
-    versionKey: false
-}
-)
-
+// Creation of model from schema
 const Recipe = new mongoose.model("recipe", recipeSchema);
-module.exports = Recipe; 
+
+// Exporting model
+module.exports = Recipe;
 

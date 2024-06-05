@@ -1,5 +1,5 @@
 // Requring in model
-const Review = require("../models/Review-model");
+const Review = require("../models/Review");
 
 // Exporting
 module.exports = {

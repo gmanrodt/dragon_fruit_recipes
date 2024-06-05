@@ -1,5 +1,5 @@
 // Requring in model
-const Recipe = require("../models/Recipe-model");
+const Recipe = require("../models/CreatedRecipe");
 
 // Exporting
 module.exports = {
@@ -38,7 +38,7 @@ module.exports = {
   },
 
   // Update recipe
-  async updateRecipew(req, res) {
+  async updateRecipe(req, res) {
     try {
       const recipe = await Recipe.findOneAndUpdate(
         {_id: req.params.recipeId},

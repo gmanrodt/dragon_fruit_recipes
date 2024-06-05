@@ -12,7 +12,29 @@ export default function RecipeSearch() {
         navigate('/search');
     }, []);
 
-    
+    const search = searchResult();
+    useEffect(() => {
+        const fetchOneResult = async () => {
+            try {
+                const response = await fetch({
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                if (response.ok) {
+                    const responseData = await response.json();
+                    setData(responseData);
+                } else {
+                    console.error('Failed to fetch data');
+                }
+                } catch(error) {
+                    console.error('An error occured while fetching data:', error);
+                }
+            }
+        })
+    };
+
 
 
     return (

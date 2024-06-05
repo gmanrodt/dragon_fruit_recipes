@@ -2,6 +2,8 @@ import React, { useState, useEffect, useLocation } from "react";
 import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { Button, Form, FormGroup, FormLabel, FormControl } from 'react-bootstrap'
+import '../App'
+
 export default function RecipeSearch() {
 
     const navigate = useNavigate();
@@ -10,10 +12,29 @@ export default function RecipeSearch() {
         navigate('/search');
     }, []);
 
-    const search = searchResults();
+    const search = searchResult();
     useEffect(() => {
-        navigate("/SearchResult");   // unsure if this is right. trying to redirect user to the page with listed results
-    }, []);
+        const fetchOneResult = async () => {
+            try {
+                const response = await fetch({
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    const responseData = await response.json();
+                    setData(responseData);
+                } else {
+                    console.error('Failed to fetch data');
+                } catch (error) {
+                    console.error('An error occured while fetching data:', error);
+                }
+            }
+        };
+    })
+
 
     return (
         <>

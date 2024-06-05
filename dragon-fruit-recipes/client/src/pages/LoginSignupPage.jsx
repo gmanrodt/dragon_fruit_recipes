@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom";
 import { validateEmail, checkPassword } from '../utils/helpers';
+import "../style/login.css"
 
 
 export default function AuthPage(){
@@ -101,25 +102,44 @@ export default function AuthPage(){
         }
     }
     return (
-        <div>
-            <h2>Sign Up Form</h2>
-            <form onSubmit={handleSignup}>
-                <label>Username</label>
-                <input type="text" name="signupUsername" value={formData.signupUsername} onChange={handleInputChange} />
-                <label>Email</label>
-                <input type="text" name="signupEmail" value={formData.signupEmail} onChange={handleInputChange} />
-                <label>Password</label>
-                <input type="password" name="signupPassword" value={formData.signupPassword} onChange={handleInputChange} />
-                <button type="submit">Submit</button>
-            </form>
-            <h2>Login Form</h2>
+        <div className="logSignForms">
+            <div className="signupForm">
+                <h2>Sign Up Form</h2>
+                <form onSubmit={handleSignup}>
+                    <div className="fieldSction">
+                        <label>Username</label>
+                        <input type="text" name="signupUsername" value={formData.signupUsername} onChange={handleInputChange} />
+                    </div>
+                    <br/>
+                    <div className="fieldSction">
+                        <label>Email</label>
+                        <input type="text" name="signupEmail" value={formData.signupEmail} onChange={handleInputChange} />
+                    </div>
+                        <br/>
+                    <div className="fieldSction">
+                        <label>Password</label>
+                        <input type="password" name="signupPassword" value={formData.signupPassword} onChange={handleInputChange} />
+                    </div>
+                    <br/>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+            <div ClassName="loginForm">
+                <h2>Login Form</h2>
                 <form onSubmit={handleLogin}>
-                <label>Username</label>
-                <input type="text" name="loginUsername" value={formData.loginUsername} onChange={handleInputChange} />
-                <label>Password</label>
-                <input type="password" name="loginPassword" value={formData.loginPassword} onChange={handleInputChange} />
-                <button type="submit">Submit</button>
-            </form>
+                    <div className="fieldSction">
+                        <label>Username</label>
+                        <input type="text" name="loginUsername" value={formData.loginUsername} onChange={handleInputChange} />
+                    </div>
+                        <br/>
+                    <div className="fieldSction">
+                        <label>Password</label>
+                        <input type="password" name="loginPassword" value={formData.loginPassword} onChange={handleInputChange} />
+                    </div>
+                        <br/>
+                        <button type="submit">Submit</button>
+                </form>
+            </div>
             <div>
                 { message.length > 0 && (
                     <p>{message}</p>

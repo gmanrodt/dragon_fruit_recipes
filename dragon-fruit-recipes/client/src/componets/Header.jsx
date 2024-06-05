@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
+import "../style/header.css"
 
 import HomePage from "../pages/HomePage"
 import RecipeSearchPage from "../pages/RecipeSearchPage"
@@ -10,40 +11,26 @@ import UserPage from "../pages/UserPage"
 
 export default function Header() {
 
-  const [currentPage, setCurrentPage] = useState('Home');
-
-  const renderPage = () => {
-    if (currentPage === 'Home') {
-      return <HomePage />;
-    }
-    if (currentPage === 'RecipeSearch') {
-      return <RecipeSearchPage />;
-    }
-    if (currentPage === 'CreateRecipe') {
-      return <CreateRecipe />;
-    }
-    if (currentPage === 'User') {
-      return <UserPage />;
-    }
-    return <LoginSignupPage />;
-  };
-
-  const handlePageChange = (page) => setCurrentPage(page);
-
   return (
     
     <div>
-      <nav>
-        <img src="/assets/dragonfruit.png" alt="Logo" />
+      <nav className="main-nav">
+        <img src="/assets/dragonfruit.png" alt="Logo" id="logo"/>
         <h1 className="flex">DragonFruit Delights</h1> 
-        <div>
-          <NavLink to="/login">   Login/Sign up   |</NavLink>
-          <NavLink to="/user">   Profile   |</NavLink>
-        </div>
-        <div>
-          <NavLink to="/">Home   |</NavLink>
-          <NavLink to="/search">   Search Recipes  |</NavLink>
-          <NavLink to="/create">   Create Recipes   |</NavLink>
+        <div className="links">
+          <div className="login">
+            <NavLink to="/login">   Login/Sign up   </NavLink>
+            <span>|</span>
+            <NavLink to="/user">   Profile   </NavLink>
+          </div>
+          <br/>
+          <div className="navlinks">
+            <NavLink to="/">Home   </NavLink>
+            <span>|</span>
+            <NavLink to="/search">   Search Recipes  </NavLink>
+            <span>|</span>
+            <NavLink to="/create">   Create Recipes   </NavLink>
+          </div>
         </div>
       </nav>
     </div>

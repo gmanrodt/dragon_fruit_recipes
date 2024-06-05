@@ -6,36 +6,36 @@ import UserInfoPage from '../pages/UserInfoPage'
 import ViewCreatedRecipe from '../pages/ViewCreatedRecipe'
 import ViewSavedRecipe from '../pages/ViewSavedRecipe'
 
-export default function UserPageNav(){
+export default function UserPageNav() {
 
 
-   const [currentPage, setCurrentPage] = useState('UserPage');
+    const [currentPage, setCurrentPage] = useState('UserPage');
 
-   const renderPage = () => {
-     if (currentPage === 'UserPage') {
-       return <UserInfoPage />;
-     }
-     if (currentPage === 'CreatedRecipe') {
-       return <ViewCreatedRecipe />;
-     }
-     if (currentPage === 'SavedRecipe') {
-       return <ViewSavedRecipe />;
-     }
-    
-   };
-   const handlePageChange = (page) => setCurrentPage(page);
+    const renderPage = () => {
+        if (currentPage === 'UserPage') {
+            return <UserInfoPage />;
+        }
+        if (currentPage === 'CreatedRecipe') {
+            return <ViewCreatedRecipe />;
+        }
+        if (currentPage === 'SavedRecipe') {
+            return <ViewSavedRecipe />;
+        }
 
-   return (
-     
-     <div>
-       <nav>
-             <div>
-                <NavLink to="/">User Info   |</NavLink>
-                <NavLink to="/created">   Created Recipes  |</NavLink>
-                <NavLink to="/saved">   Saved Recipes   |</NavLink>
-             </div>
-       </nav>
-       
-     </div>
-   );
+    };
+    const handlePageChange = (page) => setCurrentPage(page);
+
+    return (
+
+        <div>
+            <nav>
+                <div>
+                    <NavLink to="/">User Info   |</NavLink>
+                    <NavLink to="/created">   Created Recipes  |</NavLink>
+                    <NavLink to="/saved">   Saved Recipes   |</NavLink>
+                </div>
+            </nav>
+
+        </div>
+    );
 }

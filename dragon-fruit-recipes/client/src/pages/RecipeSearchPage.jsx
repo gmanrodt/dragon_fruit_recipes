@@ -2,7 +2,7 @@ import React, { useState, useEffect, useLocation } from "react";
 import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { Button, Form, FormGroup, FormLabel, FormControl } from 'react-bootstrap'
-import '../App'
+import '../style/createRecipe.css'
 
 export default function RecipeSearch() {
 
@@ -39,13 +39,15 @@ export default function RecipeSearch() {
 
     return (
         <>
-            <Form className="border p-3">
+        <h3>Featured Recipes</h3>
+        {/* add recipe card */}
+            <Form className="border p-3 form">
                 <FormGroup className="mb-3">
-                    <FormLabel>Search by Title</FormLabel>
+                    <FormLabel>Search by Title: </FormLabel>
                     <FormControl type="text" placeholder="Search by title" />
                 </FormGroup>
                 <FormGroup className="mb-3">
-                    <FormLabel>Search by Category</FormLabel>
+                    <FormLabel>Search by Category: </FormLabel>
                     <select id="dropdown-basic-button" title="Select Category">
                         <option value="beef">Beef</option>
                         <option value="volvo">Chicken</option>

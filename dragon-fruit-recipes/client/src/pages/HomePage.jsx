@@ -32,7 +32,7 @@ export default function HomePage() {
     return (
         <>
             <div class='about'>
-                <p> Welcome to DragonFruit Delights! This is a page for finding new recipes and sharing your own. Log in or sign up to contribute to our cooking community! </p>
+                <p> Welcome to DragonFruit Delights! This is a site for finding new recipes, rating and saving recipes, sharing your own. Log in or sign up to contribute to our cooking community! </p>
             </div>
             <div class='recipe1'></div>
             <div class='recipe2'></div>

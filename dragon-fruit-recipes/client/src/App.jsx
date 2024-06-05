@@ -21,24 +21,23 @@ function App() {
 
 
   return (
-    <AppProvider>
-      <BrowserRouter>
-        <Header />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/login" element={<LoginSignup />} />
-          <Route path="/search" element={<RecipeSearch />} />
-          <Route path="/recipe" element={<SingleRecipe />} />
-          <Route path="/create" element={<CreateRecipe />} />
-          <Route path="/user" element={<UserInfo />} />
-          <Route path="user/userinfo" element={<UserInfoPage />} />
-          <Route path="user/created" element={<ViewCreatedRecipe />} />
-          <Route path="user/saved" element={<VeiwSavedRecipe />} />
-        </Routes>
-        <Footer />
-      </BrowserRouter>
-
-    </AppProvider>
+      <AppProvider>
+        <BrowserRouter>
+          <Header />
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/login" element={<LoginSignup />} />
+            <Route path="/search" element={<RecipeSearch />} />
+            <Route path="/recipe" element={<SingleRecipe />} />
+            <Route path="/create" element={<CreateRecipe />} />
+            <Route path="/user" element={<UserInfo />} />
+            <Route path="user/userinfo" element={<UserInfoPage />} />
+            <Route path="user/created" element={<ViewCreatedRecipe />} />
+            <Route path="user/saved" element={<VeiwSavedRecipe />} />
+          </Routes>
+          <Footer />
+        </BrowserRouter>
+      </AppProvider>
   )
 }
 

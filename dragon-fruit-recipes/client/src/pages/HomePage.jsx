@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useLocation } from "react";
 import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import "../style/home.css"
+
 //fixed
 export default function HomePage() {
 
@@ -31,12 +33,27 @@ export default function HomePage() {
 
     return (
         <>
-            <div class='about'>
+            {/* <div class="loader"></div> */}
+            <div className='about'>
                 <p> Welcome to DragonFruit Delights! This is a page for finding new recipes and sharing your own. Log in or sign up to contribute to our cooking community! </p>
             </div>
-            <div class='recipe1'></div>
-            <div class='recipe2'></div>
-            <div class='recipe3'></div>
+            <div className="recipe-card-container">
+                <div className='recipe-card'>
+                    <img src="/assets/dragonfruit.png" alt="sample recipe" className="recipeImg"/>
+                    <h2>Sample Food</h2>
+                    <p>Description of food or something.</p>
+                </div>
+                <div className='recipe-card'>
+                    <img src="/assets/dragonfruit.png" alt="sample recipe" className="recipeImg"/>
+                    <h2>Sample Food</h2>
+                    <p>Description of food or something.</p>
+                </div>
+                <div className='recipe-card'>
+                    <img src="/assets/dragonfruit.png" alt="sample recipe" className="recipeImg"/>
+                    <h2>Sample Food</h2>
+                    <p>Description of food or something.</p>
+                </div>
+            </div>
 
 
             {/*TO DO: Uncomment this section below when the commented out logic is uncommented and make sure details below match API details. */}

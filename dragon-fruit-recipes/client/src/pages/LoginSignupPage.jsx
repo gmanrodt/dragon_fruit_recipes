@@ -104,36 +104,41 @@ export default function AuthPage(){
     return (
         <div className="logSignForms">
             <div className="signupForm">
-                <h2>Sign Up Form</h2>
+                <h2>Sign Up</h2>
                 <form onSubmit={handleSignup}>
                     <div className="fieldSction">
                         <label>Username</label>
+                        <br/>
                         <input type="text" name="signupUsername" value={formData.signupUsername} onChange={handleInputChange} />
                     </div>
                     <br/>
                     <div className="fieldSction">
                         <label>Email</label>
+                        <br/>
                         <input type="text" name="signupEmail" value={formData.signupEmail} onChange={handleInputChange} />
                     </div>
                         <br/>
                     <div className="fieldSction">
                         <label>Password</label>
+                        <br/>
                         <input type="password" name="signupPassword" value={formData.signupPassword} onChange={handleInputChange} />
                     </div>
                     <br/>
                     <button type="submit">Submit</button>
                 </form>
             </div>
-            <div ClassName="loginForm">
-                <h2>Login Form</h2>
+            <div id="logForm">
+                <h2>Log In</h2>
                 <form onSubmit={handleLogin}>
                     <div className="fieldSction">
                         <label>Username</label>
+                        <br/>
                         <input type="text" name="loginUsername" value={formData.loginUsername} onChange={handleInputChange} />
                     </div>
                         <br/>
                     <div className="fieldSction">
                         <label>Password</label>
+                        <br/>
                         <input type="password" name="loginPassword" value={formData.loginPassword} onChange={handleInputChange} />
                     </div>
                         <br/>

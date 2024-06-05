@@ -1,0 +1,15 @@
+.recipe-card-container {
+   display: flex;
+   justify-content: center;
+}
+
+.recipe-card {
+   border: 2px solid hsl(335, 86%, 37%);
+   border-radius: 30px;
+   margin: 30px;
+}
+
+.recipeImg {
+   max-width: 20vw;
+   border-radius: 20%;
+}

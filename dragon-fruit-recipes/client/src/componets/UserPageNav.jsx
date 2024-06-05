@@ -8,34 +8,22 @@ import ViewSavedRecipe from '../pages/ViewSavedRecipe'
 
 export default function UserPageNav(){
 
-
-   const [currentPage, setCurrentPage] = useState('UserPage');
-
-   const renderPage = () => {
-     if (currentPage === 'UserPage') {
-       return <UserInfoPage />;
-     }
-     if (currentPage === 'CreatedRecipe') {
-       return <ViewCreatedRecipe />;
-     }
-     if (currentPage === 'SavedRecipe') {
-       return <ViewSavedRecipe />;
-     }
-    
-   };
-   const handlePageChange = (page) => setCurrentPage(page);
-
    return (
      
      <div>
        <nav>
              <div>
-                <NavLink to="/">User Info   |</NavLink>
-                <NavLink to="/created">   Created Recipes  |</NavLink>
-                <NavLink to="/saved">   Saved Recipes   |</NavLink>
+
+                <NavLink to="/">User Info   </NavLink>
+                <span>|</span>
+                <NavLink to="/created">   Created Recipes  </NavLink>
+                <span>|</span>
+                <NavLink to="/saved">   Saved Recipes   </NavLink>
+
              </div>
        </nav>
        
      </div>
    );
+
 }

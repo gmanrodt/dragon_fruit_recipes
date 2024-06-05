@@ -2,7 +2,7 @@
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-require("dotenv").config()
+require("dotenv").config();
 
 // Function to create a token
 async function createToken(user) {
@@ -19,7 +19,7 @@ module.exports = {
       const user = await User.find()
         .populate({path: "savedRecipes"})
         .populate({path: "createdRecipes"})
-        .populate({path: "review"});
+        .populate({path: "reviews"});
       res.status(200).json(user);
     } catch(err) {
       res.status(500).json({msg: "Get users: " + err.message});
@@ -34,7 +34,7 @@ module.exports = {
         .populate({path: "createdRecipes"})
         .populate({path: "review"});
       if(!user) {
-        res.status(404).json({msg: "No user found with that ID"});
+        return res.status(404).json({msg: "No user found with that ID"});
       };
       res.status(200).json(user);
     } catch(err) {
@@ -69,7 +69,7 @@ module.exports = {
         {runValidators: true, new: true}
       );
       if(!user) {
-        res.status(404).json({msg: "No user found with that ID"});
+        return res.status(404).json({msg: "No user found with that ID"});
       };
       user = await user.save();
       res.status(200).json(user);
@@ -83,7 +83,7 @@ module.exports = {
     try {
       const user = await User.findOneAndDelete({_id: req.params.userId});
       if(!user) {
-        res.status(404).json({msg: "No user found with that ID"});
+        return res.status(404).json({msg: "No user found with that ID"});
       };
       res.status(200).json({msg: "User successfully deleted"})
     } catch(err) {
@@ -114,12 +114,12 @@ module.exports = {
   async verifyUser(req, res) {
     const cookie = req.cookies["auth-cookie"];
     if(!cookie) {
-      res.status(500).json({msg: "Could not authenticate user"});
+      return res.status(500).json({msg: "Could not authenticate user"});
     };
     const decryptedCookie = jwt.verify(cookie, process.env.TOKEN_ENCRYPT_KEY)
     const user = await findOne({email: decryptedCookie.email});
     if(!user) {
-      res.status(500).json({msg: "Could not authenticate user"});
+      return res.status(500).json({msg: "Could not authenticate user"});
     }
     res.status(200).json({msg: "Successfully verified"});
   }

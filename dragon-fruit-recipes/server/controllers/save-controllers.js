@@ -1,5 +1,5 @@
 // Requring in model
-const Recipe = require("../models/CreatedRecipe");
+const Recipe = require("../models/SavedRecipe");
 
 // Exporting
 module.exports = {

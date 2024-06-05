@@ -18,7 +18,7 @@ module.exports = {
     try {
       const review = await Review.findOne({_id: req.params.reviewId});
       if(!review) {
-        res.status(404).json({msg: "No review found with that ID"});
+        return res.status(404).json({msg: "No review found with that ID"});
       };
       res.status(200).json(review);
     } catch(err) {
@@ -45,7 +45,7 @@ module.exports = {
         {runValidators: true, new: true}
       );
       if(!review) {
-        res.status(404).json({msg: "No review found with that ID"});
+        return res.status(404).json({msg: "No review found with that ID"});
       };
       res.status(200).json(review);
     } catch(err) {
@@ -58,7 +58,7 @@ module.exports = {
     try {
       const review = await Review.findOneAndDelete({_id: req.params.reviewId});
       if(!review) {
-        res.status(404).json({msg: "No review found with that ID"});
+        return res.status(404).json({msg: "No review found with that ID"});
       };
       res.status(200).json({msg: "review successfully deleted"})
     } catch(err) {

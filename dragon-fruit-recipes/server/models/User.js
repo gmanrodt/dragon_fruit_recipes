@@ -9,6 +9,7 @@ const userSchema = new Schema(
       type: String,
       required: true,
       max_length: 50,
+      unique: true,
     },
     email: {
       type: String,
@@ -17,6 +18,7 @@ const userSchema = new Schema(
         /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
         "Please enter a valid email address",
       ],
+      unique: true,
     },
     password: {
       type: String,
@@ -25,9 +27,9 @@ const userSchema = new Schema(
     },
     savedRecipes: [{
       type: Schema.Types.ObjectId,
-      ref: "saved",
+      ref: "save",
     }],
-    review: [{
+    reviews: [{
       type: Schema.Types.ObjectId,
       ref: "review",
     }],

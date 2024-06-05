@@ -20,7 +20,7 @@ const userSchema = new Schema(
     savedRecipe: {
       type: String,
     },
-    reviews: {
+    review: {
       type: String,
       required: true,
       max_length: 50,

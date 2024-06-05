@@ -13,4 +13,19 @@
 
 .card {
   padding: 2em;
+
+}
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+input[type="radio"] {
+  display: none;
+}
+.star {
+  cursor: pointer;
+  font-size: 2rem;
+  margin: 5px;
 }

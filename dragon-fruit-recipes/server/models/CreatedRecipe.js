@@ -23,7 +23,8 @@ const recipeSchema= new mongoose.Schema ({
         required:true
     },
     picture:{
-
+        data: Buffer,
+        contentType: String
     },
 
 },

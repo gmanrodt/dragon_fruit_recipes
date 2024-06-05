@@ -1,0 +1,12 @@
+.main-nav {
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 4px solid #b10d52;
+}
+
+
+#logo {
+   max-width: 200px;
+   max-height: 200px;
+}

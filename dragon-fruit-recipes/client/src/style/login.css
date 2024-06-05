@@ -1,0 +1,16 @@
+.logSignForms {
+   display: flex;
+   justify-content: center;
+}
+
+.signupForm, .loginForm {
+   margin: 5px;
+}
+
+.signupForm {
+   margin-right: 5vw;
+}
+
+.loginForm {
+   margin-left: 5vw;
+}

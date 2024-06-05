@@ -57,7 +57,7 @@ module.exports = {
   // Update user
   async updateUser(req, res) {
     try {
-      const user = await User.findOneAndUpdate(
+      let user = await User.findOneAndUpdate(
         {_id: req.params.userId},
         {$set: req.body},
         {runValidators: true, new: true}
@@ -65,6 +65,7 @@ module.exports = {
       if(!user) {
         res.status(404).json({msg: "No user found with that ID"});
       };
+      user = await user.save();
       res.status(200).json(user);
     } catch(err) {
       res.status(500).json({msg: "Update user: " + err.message});
@@ -87,9 +88,10 @@ module.exports = {
   // Login user
   async loginUser(req, res) {
     try {
-      const user = await User.findOne({email: req.body.email});
+      let user = await User.findOne({email: req.body.email});
       if(!(await bcrypt.compare(req.body.password, user.password))) throw new Error();
       const token = await createToken(user);
+      // user = await user.save(); <------------- MAYBE
       res
         .status(200)
         .cookie("auth-cookie", token, {

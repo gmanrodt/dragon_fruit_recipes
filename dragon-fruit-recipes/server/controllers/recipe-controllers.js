@@ -30,7 +30,6 @@ module.exports = {
   async createRecipe(req, res) {
     try {
       const recipe = await Recipe.create(req.body);
-      const token = await createToken(recipe);
       res.status(200).json(recipe);
     } catch(err) {
       res.status(500).json({msg: "Create recipe: " + err.message});

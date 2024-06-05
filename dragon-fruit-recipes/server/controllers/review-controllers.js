@@ -30,7 +30,6 @@ module.exports = {
   async createReview(req, res) {
     try {
       const review = await Review.create(req.body);
-      const token = await createToken(review);
       res.status(200).json(review);
     } catch(err) {
       res.status(500).json({msg: "Create review: " + err.message});

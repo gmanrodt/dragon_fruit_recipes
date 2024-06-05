@@ -2,6 +2,8 @@ import React, { useState, useEffect, useLocation } from "react";
 import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { Button, Form, FormGroup, FormLabel, FormControl } from 'react-bootstrap'
+import '../App'
+
 export default function RecipeSearch() {
 
     const navigate = useNavigate();
@@ -9,6 +11,9 @@ export default function RecipeSearch() {
         // Call navigate() inside the useEffect hook
         navigate('/search');
     }, []);
+
+    
+
 
     return (
         <>

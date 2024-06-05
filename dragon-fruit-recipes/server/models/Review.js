@@ -1,14 +1,7 @@
-const { Model, DataTypes } = require('sequelize');
-const sequelize = require('../config/connection');
-const bcrypt= require('bcrypt');
+const mongoose = require('mongoose'); 
 
-class Review extends Model {}
 
-Review.init(
-    {
-        id: {
-            type: DataTypes.INTEGER
-        },
+const reviewSchema= new mongoose.Schema ({
         rating: {
             type: DataTypes.INTEGER
         },
@@ -18,11 +11,10 @@ Review.init(
     
     },
     {
-        sequelize,
-        underscored: true,
-        freezeTableName: true,
-        modelName: 'review'
+        id: false,
+        versionKey: false
     },
 
 );
-module.exports = Review;
+const Review = new mongoose.model("review", reviewSchema);
+module.exports = Review; 

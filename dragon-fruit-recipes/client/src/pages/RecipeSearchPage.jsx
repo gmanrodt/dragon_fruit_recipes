@@ -22,18 +22,19 @@ export default function RecipeSearch() {
                         'Content-Type': 'application/json'
                     }
                 });
-
                 if (response.ok) {
                     const responseData = await response.json();
                     setData(responseData);
                 } else {
                     console.error('Failed to fetch data');
-                } catch (error) {
+                }
+                } catch(error) {
                     console.error('An error occured while fetching data:', error);
                 }
             }
-        };
-    })
+        })
+    };
+
 
 
     return (

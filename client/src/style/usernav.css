@@ -1,0 +1,18 @@
+.usernav {
+   display:flex;
+   justify-content: center;
+}
+
+.usernav-container {
+   display:flex;
+   justify-content: space-around;
+   align-items: center;
+   border: 2px solid #b10d52;
+   border-radius: 15px;
+   padding: 10px;
+}
+
+.user-span {
+   padding-left: 30px;
+   padding-right: 30px
+}

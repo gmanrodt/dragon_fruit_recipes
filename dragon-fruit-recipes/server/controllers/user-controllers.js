@@ -1,8 +1,11 @@
-// Requring in model, bcrypt, jwt, and dotenv
-const User = require("../models/User-model");
+// Requring in models, bcrypt, jwt, path, and dotenv
+const User = require("../models/User");
+const SavedRecipe = require("../models/SavedRecipe");
+const CreatedRecipe = require("../models/CreatedRecipe");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-require("dotenv").config()
+const path = require('path');
+require("dotenv").config({path: path.join(__dirname, "../.env")})
 
 // Function to create a token
 async function createToken(user) {
@@ -16,7 +19,9 @@ module.exports = {
   // Get all users
   async getUsers(req, res) {
     try {
-      const user = await User.find();
+      const user = await User.find()
+        .populate({path: "savedRecipes"})
+        .populate({path: "createdRecipes"})
       res.status(200).json(user);
     } catch(err) {
       res.status(500).json({msg: "Get users: " + err.message});
@@ -26,9 +31,11 @@ module.exports = {
   // Get single user
   async getUser(req, res) {
     try {
-      const user = await User.findOne({_id: req.params.userId});
+      const user = await User.findOne({_id: req.params.userId})
+        .populate({path: "savedRecipes"})
+        .populate({path: "createdRecipes"})
       if(!user) {
-        res.status(404).json({msg: "No user found with that ID"});
+        return res.status(404).json({msg: "No user found with that ID"});
       };
       res.status(200).json(user);
     } catch(err) {
@@ -63,7 +70,7 @@ module.exports = {
         {runValidators: true, new: true}
       );
       if(!user) {
-        res.status(404).json({msg: "No user found with that ID"});
+        return res.status(404).json({msg: "No user found with that ID"});
       };
       user = await user.save();
       res.status(200).json(user);
@@ -77,8 +84,12 @@ module.exports = {
     try {
       const user = await User.findOneAndDelete({_id: req.params.userId});
       if(!user) {
-        res.status(404).json({msg: "No user found with that ID"});
+        return res.status(404).json({msg: "No user found with that ID"});
       };
+      await SavedRecipe.deleteMany({_id: {$in: user.savedRecipes.reviews}});
+      await SavedRecipe.deleteMany({_id: {$in: user.savedRecipes}});
+      await CreatedRecipe.deleteMany({_id: {$in: user.createdRecipes.reviews}});
+      await CreatedRecipe.deleteMany({_id: {$in: user.createdRecipes}});
       res.status(200).json({msg: "User successfully deleted"})
     } catch(err) {
       res.status(500).json({msg: "Delete user: " + err.message});
@@ -108,12 +119,12 @@ module.exports = {
   async verifyUser(req, res) {
     const cookie = req.cookies["auth-cookie"];
     if(!cookie) {
-      res.status(500).json({msg: "Could not authenticate user"});
+      return res.status(500).json({msg: "Could not authenticate user"});
     };
     const decryptedCookie = jwt.verify(cookie, process.env.TOKEN_ENCRYPT_KEY)
     const user = await findOne({email: decryptedCookie.email});
     if(!user) {
-      res.status(500).json({msg: "Could not authenticate user"});
+      return res.status(500).json({msg: "Could not authenticate user"});
     }
     res.status(200).json({msg: "Successfully verified"});
   }

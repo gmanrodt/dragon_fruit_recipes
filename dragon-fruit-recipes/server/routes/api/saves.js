@@ -1,25 +1,25 @@
 // Requiring in express and controllers
 const router = require("express").Router();
 const {
-  getReview,
-  getReviews,
-  createReview,
-  updateReview,
-  deleteReview
-} = require("../../controllers/review-controllers");
+  getRecipe,
+  getRecipes,
+  createRecipe,
+  updateRecipe,
+  deleteRecipe
+} = require("../../controllers/save-controllers");
 
 // All route
 router
   .route("/")
-  .get(getReviews)
-  .post(createReview);
+  .get(getRecipes)
+  .post(createRecipe);
 
 // Single route
 router
-  .route("/:reviewId")
-  .get(getReview)
-  .put(updateReview)
-  .delete(deleteReview);
+  .route("/:recipeId")
+  .get(getRecipe)
+  .put(updateRecipe)
+  .delete(deleteRecipe);
 
 // Invalid route
 router.use((req, res) => res.send("Invalid Route"));

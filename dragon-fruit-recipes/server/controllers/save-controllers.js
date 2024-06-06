@@ -1,5 +1,5 @@
 // Requring in models
-const Recipe = require("../models/CreatedRecipe");
+const Recipe = require("../models/SavedRecipe");
 const Review = require("../models/Review");
 const User = require("../models/User");
 
@@ -36,7 +36,7 @@ module.exports = {
       const recipe = await Recipe.create(req.body);
       const user = await User.findOneAndUpdate(
         {_id: req.body.userId},
-        {$addToSet: {createdRecipes: recipe._id}},
+        {$addToSet: {savedRecipes: recipe._id}},
         {runValidators: true, new: true}
       );
       if(!user) {

@@ -1,5 +1,7 @@
-// Requring in model
-const Review = require("../models/Review-model");
+// Requring in models
+const Review = require("../models/Review");
+const CreatedRecipe = require("../models/CreatedRecipe");
+const SavedRecipe = require("../models/SavedRecipe");
 
 // Exporting
 module.exports = {
@@ -18,7 +20,7 @@ module.exports = {
     try {
       const review = await Review.findOne({_id: req.params.reviewId});
       if(!review) {
-        res.status(404).json({msg: "No review found with that ID"});
+        return res.status(404).json({msg: "No review found with that ID"});
       };
       res.status(200).json(review);
     } catch(err) {
@@ -29,9 +31,46 @@ module.exports = {
   // Create review
   async createReview(req, res) {
     try {
-      const review = await Review.create(req.body);
-      const token = await createToken(review);
-      res.status(200).json(review);
+      if(req.body.createdId && req.body.savedId) {
+        const review1 = await Review.create(req.body);
+        const review2 = await Review.create(req.body);
+        const created = await CreatedRecipe.findOneAndUpdate(
+          {_id: req.body.createdId},
+          {$addToSet: {reviews: review1._id}},
+          {runValidators: true, new: true}
+        );
+        const saved = await SavedRecipe.findOneAndUpdate(
+          {_id: req.body.savedId},
+          {$addToSet: {reviews: review2._id}},
+          {runValidators: true, new: true}
+        );
+        if(!created || !saved) {
+          return res.status(404).json({msg: 'No recipe with that ID'});
+        };
+        res.status(200).json({review1, review2});
+      } else if(req.body.createdId && !req.body.savedId) {
+        const review = await Review.create(req.body);
+        const created = await CreatedRecipe.findOneAndUpdate(
+          {_id: req.body.createdId},
+          {$addToSet: {reviews: review._id}},
+          {runValidators: true, new: true}
+        );
+        if(!created) {
+          return res.status(404).json({msg: 'No recipe with that ID'});
+        };
+        res.status(200).json(review);
+      } else if(!req.body.createdId && req.body.savedId) {
+        const review = await Review.create(req.body);
+        const saved = await SavedRecipe.findOneAndUpdate(
+          {_id: req.body.savedId},
+          {$addToSet: {reviews: review._id}},
+          {runValidators: true, new: true}
+        );
+        if(!saved) {
+          return res.status(404).json({msg: 'No recipe with that ID'});
+        };
+        res.status(200).json(review);
+      }
     } catch(err) {
       res.status(500).json({msg: "Create review: " + err.message});
     };
@@ -46,7 +85,7 @@ module.exports = {
         {runValidators: true, new: true}
       );
       if(!review) {
-        res.status(404).json({msg: "No review found with that ID"});
+        return res.status(404).json({msg: "No review found with that ID"});
       };
       res.status(200).json(review);
     } catch(err) {
@@ -59,7 +98,7 @@ module.exports = {
     try {
       const review = await Review.findOneAndDelete({_id: req.params.reviewId});
       if(!review) {
-        res.status(404).json({msg: "No review found with that ID"});
+        return res.status(404).json({msg: "No review found with that ID"});
       };
       res.status(200).json({msg: "review successfully deleted"})
     } catch(err) {

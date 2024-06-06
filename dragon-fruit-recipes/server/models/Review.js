@@ -1,20 +1,28 @@
-const mongoose = require('mongoose');
+// Requiring in mongoose
+const {Schema, model} = require('mongoose');
 
-
-const reviewSchema = new mongoose.Schema({
-    rating: {
-        type: DataTypes.INTEGER
-    },
-    comments: {
-        type: DataTypes.STRING
-    },
-
-},
-    {
-        id: false,
-        versionKey: false
-    },
-
+// Review model template
+const reviewSchema = new Schema(
+	{
+		rating: {
+			type: Number,
+			min: 1,
+			max: 5,
+			required: true
+		},
+		comments: {
+			type: String,
+			required: true
+		},
+	},
+	{
+		id: false,
+		versionKey: false
+	},
 );
-const Review = new mongoose.model("review", reviewSchema);
+
+// Creation of model from schema
+const Review = new model("review", reviewSchema);
+
+// Exporting model
 module.exports = Review; 

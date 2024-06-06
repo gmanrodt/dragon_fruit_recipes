@@ -3,25 +3,42 @@ const router = require("express").Router();
 const {
   getRecipe,
   getRecipes,
-  createRecipe,
   saveRecipe,
-  updateRecipe,
-  deleteRecipe
+  databaseRecipes,
 } = require("../../controllers/recipe-controllers");
+const {
+  getReview,
+  getReviews,
+  createReview,
+  updateReview,
+  deleteReview,
+} = require("../../controllers/review-controllers");
 
 // All route
 router
   .route("/")
   .get(getRecipes)
-  .post(createRecipe);
+  .post(databaseRecipes);
 
 // Single route
 router
   .route("/:recipeId")
   .get(getRecipe)
-  .post(saveRecipe)
-  .put(updateRecipe)
-  .delete(deleteRecipe);
+  .post(saveRecipe);
+
+// All reviews for recipe route
+router
+  .route("/:recipeId/reviews")
+  .get(getReviews)
+  .post(createReview);
+
+// Single review for recipe route
+router
+  .route("/:recipeId/reviews/:reviewId")
+  .get(getReview)
+  .put(updateReview)
+  .delete(deleteReview);
+
 
 // Invalid route
 router.use((req, res) => res.send("Invalid Route"));

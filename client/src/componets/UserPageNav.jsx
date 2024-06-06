@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { useState, useEffect } from "react"
+import "../style/usernav.css"
 
 import UserInfoPage from '../pages/UserInfoPage'
 import ViewCreatedRecipe from '../pages/ViewCreatedRecipe'
@@ -11,14 +12,14 @@ export default function UserPageNav(){
    return (
      
      <div>
-       <nav>
-             <div>
+       <nav className="usernav">
+             <div className="usernav-container">
 
-                <NavLink to="/">User Info   </NavLink>
-                <span>|</span>
-                <NavLink to="/created">   Created Recipes  </NavLink>
-                <span>|</span>
-                <NavLink to="/saved">   Saved Recipes   </NavLink>
+                <NavLink to="/user">User Info   </NavLink>
+                <span className="user-span">|</span>
+                <NavLink to="/user/created">   Created Recipes  </NavLink>
+                <span className="user-span">|</span>
+                <NavLink to="/user/saved">   Saved Recipes   </NavLink>
 
              </div>
        </nav>

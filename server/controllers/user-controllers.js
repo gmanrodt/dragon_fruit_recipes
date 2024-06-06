@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const path = require('path');
 require("dotenv").config({path: path.join(__dirname, "../.env")})
+console.log(process.env.TOKEN_ENCRYPT_KEY)
 
 // Function to create a token
 async function createToken(user) {
@@ -45,9 +46,15 @@ module.exports = {
 
   // Create user
   async createUser(req, res) {
+    // console.log(req.body)
+    // const user = await User.create(req.body);
+    // res
+    // .status(200).json(user);
     try {
       const user = await User.create(req.body);
-      const token = await createToken(user);
+      console.log(user)
+
+      // const token = await createToken(user);
       res
         .status(200)
         .cookie("auth-cookie", token, {
@@ -57,6 +64,7 @@ module.exports = {
         })
         .json(user);
     } catch(err) {
+      console.log(err)
       res.status(500).json({msg: "Create user: " + err.message});
     };
   },

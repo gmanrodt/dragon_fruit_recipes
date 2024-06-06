@@ -4,6 +4,7 @@ const {
   getRecipe,
   getRecipes,
   createRecipe,
+  saveRecipe,
   updateRecipe,
   deleteRecipe
 } = require("../../controllers/recipe-controllers");
@@ -18,6 +19,7 @@ router
 router
   .route("/:recipeId")
   .get(getRecipe)
+  .post(saveRecipe)
   .put(updateRecipe)
   .delete(deleteRecipe);
 

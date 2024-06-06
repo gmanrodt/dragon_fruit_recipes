@@ -1,7 +1,5 @@
 // Requring in models, bcrypt, jwt, path, and dotenv
-const User = require("../models/User");
-const SavedRecipe = require("../models/SavedRecipe");
-const CreatedRecipe = require("../models/CreatedRecipe");
+const {User, Recipe, Review} = require("../models");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const path = require('path');
@@ -20,8 +18,9 @@ module.exports = {
   async getUsers(req, res) {
     try {
       const user = await User.find()
-        .populate({path: "savedRecipes"})
-        .populate({path: "createdRecipes"})
+        .populate({path: "createdRecipes", select: "-reviews"})
+        .populate({path: "savedRecipes", select: "title"})
+        .populate({path: "reviews"});
       res.status(200).json(user);
     } catch(err) {
       res.status(500).json({msg: "Get users: " + err.message});
@@ -32,8 +31,9 @@ module.exports = {
   async getUser(req, res) {
     try {
       const user = await User.findOne({_id: req.params.userId})
-        .populate({path: "savedRecipes"})
-        .populate({path: "createdRecipes"})
+        .populate({path: "createdRecipes", select: "-reviews"})
+        .populate({path: "savedRecipes", select: "title"})
+        .populate({path: "reviews"});
       if(!user) {
         return res.status(404).json({msg: "No user found with that ID"});
       };
@@ -86,10 +86,13 @@ module.exports = {
       if(!user) {
         return res.status(404).json({msg: "No user found with that ID"});
       };
-      await SavedRecipe.deleteMany({_id: {$in: user.savedRecipes.reviews}});
-      await SavedRecipe.deleteMany({_id: {$in: user.savedRecipes}});
-      await CreatedRecipe.deleteMany({_id: {$in: user.createdRecipes.reviews}});
-      await CreatedRecipe.deleteMany({_id: {$in: user.createdRecipes}});
+      await Recipe.deleteMany({_id: {$in: user.createdRecipes}});
+      await Review.deleteMany({_id: {$in: user.reviews}});
+      await Recipe.findOneAndUpdate(
+        {_id: req.params.userId},
+        {$pull: {savedRecipes}},
+        {runValidators: true, new: true}
+      );
       res.status(200).json({msg: "User successfully deleted"})
     } catch(err) {
       res.status(500).json({msg: "Delete user: " + err.message});
@@ -99,7 +102,7 @@ module.exports = {
   // Login user
   async loginUser(req, res) {
     try {
-      let user = await User.findOne({email: req.body.email});
+      let user = await User.findOne({username: req.body.username});
       if(!(await bcrypt.compare(req.body.password, user.password))) throw new Error();
       const token = await createToken(user);
       // user = await user.save(); <------------- MAYBE

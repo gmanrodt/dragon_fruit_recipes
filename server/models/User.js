@@ -8,7 +8,7 @@ const userSchema = new Schema(
     username: {
       type: String,
       required: true,
-      max_length: 50,
+      maxLength: 50,
       unique: true,
     },
     email: {
@@ -23,7 +23,7 @@ const userSchema = new Schema(
     password: {
       type: String,
       required: true,
-      min_length: 8,
+      minLength: 8,
     },
     createdRecipes: [{
       type: Schema.Types.ObjectId,
@@ -31,7 +31,11 @@ const userSchema = new Schema(
     }],
     savedRecipes: [{
       type: Schema.Types.ObjectId,
-      ref: "save",
+      ref: "recipe",
+    }],
+    reviews: [{
+      type: Schema.Types.ObjectId,
+      ref: "review",
     }],
   },
   {

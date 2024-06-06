@@ -1,5 +1,5 @@
 // Requring in models
-const Recipe = require("../models/SavedRecipe");
+const Recipe = require("../models/Recipe");
 const Review = require("../models/Review");
 const User = require("../models/User");
 

@@ -1,7 +1,7 @@
 // Requring in mongoose
 const {Schema, model} = require('mongoose');
 
-// Recipe model template
+// ecipe model template
 const recipeSchema = new Schema(
 	{
 		title: {

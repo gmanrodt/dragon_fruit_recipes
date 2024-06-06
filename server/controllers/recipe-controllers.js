@@ -1,5 +1,5 @@
 // Requring in models
-const Recipe = require("../models/CreatedRecipe");
+const Recipe = require("../models/Recipe");
 const Review = require("../models/Review");
 const User = require("../models/User");
 
@@ -35,7 +35,7 @@ module.exports = {
     try {
       const recipe = await Recipe.create(req.body);
       const user = await User.findOneAndUpdate(
-        {_id: req.body.userId},
+        {email: req.body.email},
         {$addToSet: {createdRecipes: recipe._id}},
         {runValidators: true, new: true}
       );
@@ -43,6 +43,24 @@ module.exports = {
         return res.status(404).json({msg: 'No user with that ID'});
       };
       res.status(200).json(recipe);
+    } catch(err) {
+      res.status(500).json({msg: "Create recipe: " + err.message});
+    };
+  },
+
+  // Create saved recipe
+  async saveRecipe(req, res) {
+    try {
+      // const recipe = await Recipe.create(req.body);
+      const user = await User.findOneAndUpdate(
+        {email: req.body.email},
+        {$addToSet: {savedRecipes: req.params.recipeId}},
+        {runValidators: true, new: true}
+      );
+      if(!user) {
+        return res.status(404).json({msg: 'No user with that ID'});
+      };
+      res.status(200).json(user);
     } catch(err) {
       res.status(500).json({msg: "Create recipe: " + err.message});
     };

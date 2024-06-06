@@ -33,12 +33,11 @@ export default function RecipeSearch() {
                 }
             }
         })
-    };
-
-
-
-    return (
-        <>
+        
+        
+        
+        return (
+            <>
         <h3>Featured Recipes</h3>
         {/* add recipe card */}
             <Form className="border p-3 form">
@@ -68,3 +67,5 @@ export default function RecipeSearch() {
             </Form>
         </>
     )
+    
+};

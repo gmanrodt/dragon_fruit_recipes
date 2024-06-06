@@ -25,17 +25,13 @@ const userSchema = new Schema(
       required: true,
       min_length: 8,
     },
-    savedRecipes: [{
-      type: Schema.Types.ObjectId,
-      ref: "save",
-    }],
-    reviews: [{
-      type: Schema.Types.ObjectId,
-      ref: "review",
-    }],
     createdRecipes: [{
       type: Schema.Types.ObjectId,
       ref: "recipe",
+    }],
+    savedRecipes: [{
+      type: Schema.Types.ObjectId,
+      ref: "save",
     }],
   },
   {

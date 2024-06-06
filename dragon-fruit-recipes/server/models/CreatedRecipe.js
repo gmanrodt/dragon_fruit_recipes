@@ -1,8 +1,8 @@
 // Requring in mongoose
-const mongoose = require('mongoose');
+const {Schema, model} = require('mongoose');
 
 // Recipe model template
-const recipeSchema = new mongoose.Schema(
+const recipeSchema = new Schema(
 	{
 		title: {
 			type: String,
@@ -30,6 +30,10 @@ const recipeSchema = new mongoose.Schema(
 			data: Buffer,
       contentType: String
 		},
+		reviews: [{
+      type: Schema.Types.ObjectId,
+      ref: "review",
+    }],
 	},
 	{
 		id: false,
@@ -38,7 +42,7 @@ const recipeSchema = new mongoose.Schema(
 );
 
 // Creation of model from schema
-const Recipe = new mongoose.model("recipe", recipeSchema);
+const Recipe = new model("recipe", recipeSchema);
 
 // Exporting model
 module.exports = Recipe;

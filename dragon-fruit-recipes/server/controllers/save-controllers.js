@@ -1,12 +1,15 @@
-// Requring in model
+// Requring in models
 const Recipe = require("../models/SavedRecipe");
+const Review = require("../models/Review");
+const User = require("../models/User");
 
 // Exporting
 module.exports = {
   // Get all recipes
   async getRecipes(req, res) {
     try {
-      const recipe = await Recipe.find();
+      const recipe = await Recipe.find()
+        .populate({path: "reviews"});
       res.status(200).json(recipe);
     } catch(err) {
       res.status(500).json({msg: "Get recipes: " + err.message});
@@ -16,7 +19,8 @@ module.exports = {
   // Get single recipe
   async getRecipe(req, res) {
     try {
-      const recipe = await Recipe.findOne({_id: req.params.recipeId});
+      const recipe = await Recipe.findOne({_id: req.params.recipeId})
+        .populate({path: "reviews"});
       if(!recipe) {
         return res.status(404).json({msg: "No recipe found with that ID"});
       };
@@ -30,6 +34,14 @@ module.exports = {
   async createRecipe(req, res) {
     try {
       const recipe = await Recipe.create(req.body);
+      const user = await User.findOneAndUpdate(
+        {_id: req.body.userId},
+        {$addToSet: {savedRecipes: recipe._id}},
+        {runValidators: true, new: true}
+      );
+      if(!user) {
+        return res.status(404).json({msg: 'No user with that ID'});
+      };
       res.status(200).json(recipe);
     } catch(err) {
       res.status(500).json({msg: "Create recipe: " + err.message});
@@ -60,6 +72,7 @@ module.exports = {
       if(!recipe) {
         return res.status(404).json({msg: "No recipe found with that ID"});
       };
+      await Review.deleteMany({_id: {$in: recipe.reviews}});
       res.status(200).json({msg: "recipe successfully deleted"})
     } catch(err) {
       res.status(500).json({msg: "Delete recipe: " + err.message});

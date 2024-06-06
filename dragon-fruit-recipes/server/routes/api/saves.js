@@ -16,7 +16,7 @@ router
 
 // Single route
 router
-  .route("/:savesId")
+  .route("/:recipeId")
   .get(getRecipe)
   .put(updateRecipe)
   .delete(deleteRecipe);

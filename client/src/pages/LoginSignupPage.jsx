@@ -4,28 +4,29 @@ import { validateEmail, checkPassword } from '../utils/helpers';
 import "../style/login.css"
 
 
-export default function AuthPage(){
+export default function AuthPage() {
 
     const navigate = useNavigate();
 
-    const [ formData, setFormData ] = useState({
-        signupUsername: "", signupEmail: "", signupPassword: "", loginUsername: "",  loginPassword: ""
+    const [formData, setFormData] = useState({
+        signupUsername: "", signupEmail: "", signupPassword: "", loginUsername: "", loginPassword: ""
     })
 
     const [message, setMessage] = useState("");
 
-    function clearForms(){
+    function clearForms() {
         setFormData({ signupUsername: "", signupEmail: "", signupPassword: "", loginUsername: "", loginPassword: "" })
     }
 
 
-    // const [username, setUsername] = useState('');
-    // const [email, setEmail] = useState('');
-    // const [password, setPassword] = useState('');
-    const [errorMessage, setErrorMessage] = useState('');
-    
+    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
-    function handleInputChange(event){
+    const [errorMessage, setErrorMessage] = useState('');
+
+
+    function handleInputChange(event) {
         setMessage("")
         setFormData({
             ...formData,
@@ -33,20 +34,11 @@ export default function AuthPage(){
         })
     }
 
-    async function handleSignup(event){
+    async function handleSignup(event) {
         event.preventDefault()
-        if (!username) {
-            setErrorMessage('Username is required');
-            return;
-          } if (!validateEmail(email)) {
-            setErrorMessage('Email is invalid');
-            return;
-          } if (!password) {
-            setErrorMessage('Password is required');
-            return;
-          } 
+        console.log("got here")
         try {
-            const response = await fetch("/api/user", {
+            const response = await fetch("/api/users", {
                 method: 'POST',
                 body: JSON.stringify({
                     username: formData.signupUsername,
@@ -57,46 +49,41 @@ export default function AuthPage(){
                     'Content-Type': 'application/json'
                 }
             })
+            console.log(response)
+            if (!response.ok) throw new Error('broken')
             const result = await response.json()
-            if(result.status === "success"){
-                setMessage("Signup successful")
-              }
+            console.log('result')
+            // if (result) {
+            //     setMessage("Signup successful")
+            // }
             clearForms()
-        } catch(err){
-            console.log(err)
+        } catch (err) {
+            console.log(err.message)
+            console.log('here')
             setMessage("We could not sign you up with the credentials provided")
         }
-    // display a message to the user
+        // display a message to the user
     }
 
-    async function handleLogin(event){
+    async function handleLogin(event) {
         event.preventDefault()
-        if (!username) {
-            setErrorMessage('Username is required');
-            return;
-          } if (!checkPassword(password)) {
-            setErrorMessage('Password does not match');
-            return;
-          }
         try {
-            const response = await fetch("/api/user/login", {
+            const response = await fetch("/api/users/login", {
                 method: 'POST',
                 body: JSON.stringify({
-                username: formData.loginUsername,
-                password: formData.loginPassword
+                    username: formData.loginUsername,
+                    password: formData.loginPassword
                 }),
                 headers: {
-                'Content-Type': 'application/json'
+                    'Content-Type': 'application/json'
                 }
             })
-        const result = await response.json()
-        clearForms()
-        if( result.status === 'success' ){
-            navigate("/");
-        } else {
-            setMessage("There's a problem with logging you in.")
-        }
-        } catch(err){
+            console.log(response)
+            if (!response.ok) throw new Error('broken')
+                const result = await response.json()
+                console.log('result')
+            
+        } catch (err) {
             console.log(err.message)
             setMessage("We could not log you in with the credentials provided")
         }
@@ -108,22 +95,22 @@ export default function AuthPage(){
                 <form onSubmit={handleSignup}>
                     <div className="fieldSction">
                         <label>Username</label>
-                        <br/>
+                        <br />
                         <input type="text" name="signupUsername" value={formData.signupUsername} onChange={handleInputChange} />
                     </div>
-                    <br/>
+                    <br />
                     <div className="fieldSction">
                         <label>Email</label>
-                        <br/>
+                        <br />
                         <input type="text" name="signupEmail" value={formData.signupEmail} onChange={handleInputChange} />
                     </div>
-                        <br/>
+                    <br />
                     <div className="fieldSction">
                         <label>Password</label>
-                        <br/>
+                        <br />
                         <input type="password" name="signupPassword" value={formData.signupPassword} onChange={handleInputChange} />
                     </div>
-                    <br/>
+                    <br />
                     <button type="submit">Submit</button>
                 </form>
             </div>
@@ -132,21 +119,21 @@ export default function AuthPage(){
                 <form onSubmit={handleLogin}>
                     <div className="fieldSction">
                         <label>Username</label>
-                        <br/>
+                        <br />
                         <input type="text" name="loginUsername" value={formData.loginUsername} onChange={handleInputChange} />
                     </div>
-                        <br/>
+                    <br />
                     <div className="fieldSction">
                         <label>Password</label>
-                        <br/>
+                        <br />
                         <input type="password" name="loginPassword" value={formData.loginPassword} onChange={handleInputChange} />
                     </div>
-                        <br/>
-                        <button type="submit">Submit</button>
+                    <br />
+                    <button type="submit">Submit</button>
                 </form>
             </div>
             <div>
-                { message.length > 0 && (
+                {message.length > 0 && (
                     <p>{message}</p>
                 )}
             </div>

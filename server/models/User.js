@@ -23,7 +23,7 @@ const userSchema = new Schema(
     password: {
       type: String,
       required: true,
-      min_length: 8,
+      minLength: 8,
     },
     createdRecipes: [{
       type: Schema.Types.ObjectId,

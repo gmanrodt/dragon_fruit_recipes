@@ -12,8 +12,8 @@ export default function CreateRecipe() {
         title: '',
         category: '',
         instructions: '',
-        igredient: '',
-        measurement: ''
+        ingredients: '',
+        measurements: ''
     });
 
     const handleChange = (e, fieldName) => {
@@ -37,7 +37,6 @@ export default function CreateRecipe() {
             });
             if (response.ok) {
                 // Handle successful form submission
-                document.location.replace('/created')
                 console.log(response)
                 console.log('Form data submitted successfully');
                 //history.push('/my-new-page');

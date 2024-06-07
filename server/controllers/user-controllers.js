@@ -194,7 +194,7 @@ module.exports = {
     if(!user) {
       return res.status(500).json({msg: "Could not authenticate user"});
     }
-    res.status(200).json({msg: "Successfully verified"});
+    res.status(200).json({msg: "Successfully verified", results: user});
   },
 
   // DELETE ALL USERS/RECIPES/REVIES

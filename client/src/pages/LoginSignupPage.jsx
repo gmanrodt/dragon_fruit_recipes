@@ -75,31 +75,27 @@ export default function AuthPage() {
     }
 
     async function handleLogin(event) {
-        event.preventDefault()
-        try {
-            const response = await fetch("/api/users/login", {
-                method: 'POST',
-                body: JSON.stringify({
-                    username: formData.loginUsername,
-                    password: formData.loginPassword
-                }),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-            console.log(response)
-            if ( response && response.ok ){
-                document.location.replace('/user')
+        event.preventDefault();
+        const response = await fetch("/api/users/login", {
+            method: 'POST',
+            body: JSON.stringify({
+                username: formData.loginUsername,
+                password: formData.loginPassword
+            }),
+            headers: {
+                'Content-Type': 'application/json'
             }
-            if (!response.ok) throw new Error('broken')
-                const result = await response.json()
-                console.log('result')
-            
-        } catch (err) {
-            console.log(err.message)
+        })
+        .then( response => response.json() )
+        .then( data => {
+           window.location.href = "/user";
+        })
+        .catch(error => {
             setMessage("We could not log you in with the credentials provided")
-        }
+            console.error('Error:', error);
+        });
     }
+
     return (
         <div className="logSignForms">
             <div className="signupForm">

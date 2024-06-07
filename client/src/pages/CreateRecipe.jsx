@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useLocation } from "react"
 import { useNavigate } from 'react-router-dom';
+import { useAppContext } from "../providers/AppProvider";
 import AddFormFields from "../componets/AddFormFields";
 import '../style/createRecipe.css'
 import { NavLink } from "react-router-dom";
 export default function CreateRecipe() {
 
+    const { currentUser } = useAppContext()
 
     const [formData, setFormData] = useState({
         title: '',
@@ -14,19 +16,19 @@ export default function CreateRecipe() {
         measurement: ''
     });
 
-
-    const handleChange = (e) => {
+    const handleChange = (e, fieldName) => {
         setFormData({
-            ...formData,
-            [e.target.name]: e.target.value
+          ...formData,
+          [fieldName]: e.target.value,
         });
-    };
+      };
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            const response = await fetch('api/recpies', { //change stuff here
+            const response = await fetch(`/api/users/${currentUser._id}`, { //change stuff here
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -35,6 +37,7 @@ export default function CreateRecipe() {
             });
             if (response.ok) {
                 // Handle successful form submission
+                document.location.replace('/created')
                 console.log(response)
                 console.log('Form data submitted successfully');
                 //history.push('/my-new-page');
@@ -70,12 +73,12 @@ export default function CreateRecipe() {
                         <div className="top-row">
                             <label htmlFor="title">Recipe Title: </label>
                             <br/>
-                            <input type="text" id="" placeholder="Please type Dish title" value={formData.title} onChange={handleChange} />
+                            <input type="text" placeholder="Please type Dish title" value={formData.title} onChange={(e) => handleChange(e, 'title')} />
                         </div>
                         <div className="top-row">
                             <label htmlFor="category">Category: </label>
                             <br/>
-                            <select id="dropdown-basic-button" title="Select Category" value={formData.category} onChange={handleChange} >
+                            <select id="dropdown-basic-button" title="Select Category" value={formData.category} onChange={(e) => handleChange(e, 'category')} >
                                 <option value="beef">Beef</option>
                                 <option value="volvo">Chicken</option>
                                 <option value="volvo">Dessert</option>
@@ -94,7 +97,7 @@ export default function CreateRecipe() {
                         <div className="top-row">
                             <label htmlFor="instructions">Instructions: </label>
                             <br/>
-                            <textarea type="text" id="instructions" placeholder="Please enter Instructions" value={formData.instructions} onChange={handleChange} />
+                            <textarea type="text" id="instructions" placeholder="Please enter Instructions" value={formData.instructions} onChange={(e) => handleChange(e, 'instructions')}  />
                         </div>
                     </div>
                     <div className="ingredientList">

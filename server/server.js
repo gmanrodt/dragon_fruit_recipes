@@ -3,7 +3,7 @@ const path = require('path');
 const db = require('./config/connections');
 const routes = require("./routes");
 const cookieParser = require("cookie-parser");
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3002;
 const app = express();
 
 app.use(cookieParser());

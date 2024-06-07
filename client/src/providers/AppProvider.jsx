@@ -6,15 +6,26 @@ const AppContext = createContext({})
 export const useAppContext = () => useContext(AppContext)
 
 export default function AppProvider(props){
+
+
+
+
+  const handleChange = (e, fieldName) => {
+    setFormData({
+      ...formData,
+      [fieldName]: e.target.value,
+    });
+  };
+  
   const [ currentUser, setCurrentUser ] = useState()
 
   async function verifyUser(){
     const foundCookie = Cookie.get("auth-cookie");
     if (foundCookie){
-      const response = await fetch("/api/user/verify");
+      const response = await fetch("/api/users/verify");
       const foundUser = await response.json();
       console.log(foundUser)
-      setCurrentUser(foundUser)
+      setCurrentUser(foundUser.results)
     }
   }
   useEffect(() => {
@@ -25,4 +36,8 @@ export default function AppProvider(props){
       { props.children }
     </AppContext.Provider>
   )
+
+
+
+  
 }

@@ -57,33 +57,52 @@ export default function RecipeSearch() {
 
     // const search = searchResult();
 
-    useEffect(() => {
-        const fetchOneResult = async () => {
-            try {
-                const response = await fetch({
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                });
-                if (response.ok) {
-                    console.log('git here')
-                    const responseData = await response.json();
-                    setData(responseData);
-                   
-                } else {
-                    console.error('Failed to fetch data');
-                }
-                } catch(error) {
-                    console.error('An error occured while fetching data:', error);
-                }
-            }
-        })
+    // useEffect(() => {
+    //     const fetchOneResult = async () => {
+    //         try {
+    //             const response = await fetch({
+    //                 method: 'GET',
+    //                 headers: {
+    //                     'Content-Type': 'application/json'
+    //                 }
+    //             });
+    //             if (response.ok) {
+    //                 console.log('git here')
+    //                 const responseData = await response.json();
+    //                 setData(responseData);
+    //             } else {
+    //                 console.error('Failed to fetch data');
+    //             }
+    //             } catch(error) {
+    //                 console.error('An error occured while fetching data:', error);
+    //             }
+    //         }
+    //     })
+        
+        const [query, setQuery] = useState("");
+        const [results, setResults] = useState([]);
 
-        
-        
-        
-        
+        const handleSubmitSearch = async (e) => {
+            e.preventDefault();
+
+                const response = await fetch(""); // unsure of what my api route is for this page atm. need to check
+                const data = await response.json();
+                setResults(data);
+            } catch (error) {
+                console.error('Error fetching the search results', error);
+            }
+        }
+
+        const handleChange = (e) => {
+            setFormData({
+                ...FormData, title: e.target.value.title, category: e.target.value.category
+            });
+        };
+
+        {[Array].map((results, index) => {
+            const searchResults = index;
+        })}
+
         return (
             <>
         <h3>Featured Recipes</h3>

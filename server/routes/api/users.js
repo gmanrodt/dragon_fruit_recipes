@@ -35,7 +35,7 @@ router
 // Verify user route
 router
 .route("/verify")
-.post(verifyUser);
+.get(verifyUser);
 
 // DELETE ALL
 router

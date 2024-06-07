@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useLocation } from "react"
 import { useNavigate } from 'react-router-dom';
+import { useAppContext } from "../providers/AppProvider";
 import AddFormFields from "../componets/AddFormFields";
 import '../style/createRecipe.css'
 import { NavLink } from "react-router-dom";
 export default function CreateRecipe() {
 
+    const { currentUser } = useAppContext()
 
     const [formData, setFormData] = useState({
         title: '',
@@ -14,19 +16,19 @@ export default function CreateRecipe() {
         measurement: ''
     });
 
-
-    const handleChange = (e) => {
+    const handleChange = (e, fieldName) => {
         setFormData({
           ...formData,
           [fieldName]: e.target.value,
         });
       };
 
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            const response = await fetch('api/recpies', { //change stuff here
+            const response = await fetch(`/api/users/${currentUser._id}`, { //change stuff here
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -94,7 +96,7 @@ export default function CreateRecipe() {
                         <div className="top-row">
                             <label htmlFor="instructions">Instructions: </label>
                             <br/>
-                            <textarea type="text" id="instructions" placeholder="Please enter Instructions" value={formData.instructions} onChange={handleChange} />
+                            <textarea type="text" id="instructions" placeholder="Please enter Instructions" value={formData.instructions} onChange={(e) => handleChange(e, 'instructions')}  />
                         </div>
                     </div>
                     <div className="ingredientList">

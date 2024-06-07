@@ -177,7 +177,7 @@ module.exports = {
           httpOnly: false,
           secure: process.env.NODE_ENV === "production"
         })
-        .json(user)
+        .json({user: user})
     } catch(err) {
       res.status(500).json({msg: "Login user: " + err.message});
     };
@@ -190,11 +190,13 @@ module.exports = {
       return res.status(500).json({msg: "Could not authenticate user"});
     };
     const decryptedCookie = jwt.verify(cookie, process.env.TOKEN_ENCRYPT_KEY)
-    const user = await findOne({email: decryptedCookie.email});
+    console.log(decryptedCookie)
+    const user = await User.findOne({email: decryptedCookie.email});
+    console.log(user)
     if(!user) {
       return res.status(500).json({msg: "Could not authenticate user"});
     }
-    res.status(200).json({msg: "Successfully verified"});
+    res.status(200).json({msg: "Successfully verified", results: user});
   },
 
   // DELETE ALL USERS/RECIPES/REVIES

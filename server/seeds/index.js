@@ -19,6 +19,26 @@ connection.once('open', async() => {
     await connection.db.dropCollection("users");
   }
 
+  const recipesIngredients = [];
+  const recipesMeasurements = [];
+  
+  recipeData.forEach((recipe) => {
+    const ingredients = [];
+    const measurements = [];
+    for (let i = 1; i <= 20; i++) {
+      const ingredientKey = `strIngredient${i}`;
+      const measurementKey = `strMeasure${i}`;
+      const ingredient = recipe[ingredientKey];
+      const measurement = recipe[measurementKey];
+      if (ingredient && measurement) {
+        ingredients.push(ingredient);
+        measurements.push(measurement);
+      }
+    }
+    recipesIngredients.push(ingredients);
+    recipesMeasurements.push(measurements);
+  });
+  
   // Creating new collection
   try {
     await Recipe.insertMany(recipeData)

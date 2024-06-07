@@ -12,7 +12,8 @@ export default function RecipeSearch() {
         navigate('/search');
     }, []);
 
-    const search = searchResult();
+    // const search = searchResult();
+
     useEffect(() => {
         const fetchOneResult = async () => {
             try {
@@ -23,6 +24,7 @@ export default function RecipeSearch() {
                     }
                 });
                 if (response.ok) {
+                    console.log('git here')
                     const responseData = await response.json();
                     setData(responseData);
                 } else {

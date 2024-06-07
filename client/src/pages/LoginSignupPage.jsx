@@ -25,6 +25,11 @@ export default function AuthPage() {
 
     const [errorMessage, setErrorMessage] = useState('');
 
+    // function newPage(event){
+    //     event.preventDefault()
+    //     navigate('/user');
+    // }
+
 
     function handleInputChange(event) {
         setMessage("")
@@ -129,7 +134,7 @@ export default function AuthPage() {
                         <input type="password" name="loginPassword" value={formData.loginPassword} onChange={handleInputChange} />
                     </div>
                     <br />
-                    <button type="submit">Submit</button>
+                    <button type="submit" >Submit</button>
                 </form>
             </div>
             <div>

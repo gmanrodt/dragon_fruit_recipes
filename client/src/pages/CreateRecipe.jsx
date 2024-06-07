@@ -25,16 +25,16 @@ export default function CreateRecipe() {
         e.preventDefault();
 
         try {
-            const response = await fetch('this will need to be added', { //change stuff here
+            const response = await fetch('api/recpies', { //change stuff here
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(formData)
             });
-
             if (response.ok) {
                 // Handle successful form submission
+                console.log(response)
                 console.log('Form data submitted successfully');
             } else {
                 // Handle errors if submission fails

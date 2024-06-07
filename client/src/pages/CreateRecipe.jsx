@@ -35,6 +35,7 @@ export default function CreateRecipe() {
             });
             if (response.ok) {
                 // Handle successful form submission
+                document.location.replace('/created')
                 console.log(response)
                 console.log('Form data submitted successfully');
                 //history.push('/my-new-page');

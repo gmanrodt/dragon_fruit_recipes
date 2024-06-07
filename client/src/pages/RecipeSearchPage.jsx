@@ -6,11 +6,54 @@ import '../style/createRecipe.css'
 
 export default function RecipeSearch() {
 
+    const [formData, setFormData] = useState({
+        title: '',
+        category: ''
+    });
+
+
+    const handleChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        });
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            const response = await fetch('api/recpies', { //change stuff here
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+            if (response.ok) {
+                // Handle successful ,form submission
+                document.location.replace('/searchresult')
+                console.log(response)
+                console.log('Form data submitted successfully');
+            } else{
+                console.log('problem')
+            }
+        } catch (error) {
+            console.error('An error occurred while submitting form data:', error);
+        }
+    };
+        
+        
+
+
     const navigate = useNavigate();
     useEffect(() => {
         // Call navigate() inside the useEffect hook
         navigate('/search');
     }, []);
+    // const searchresult= Button.onClick(
+    //     document.location.replace('/searchresult')
+    // )
 
     // const search = searchResult();
 
@@ -27,6 +70,7 @@ export default function RecipeSearch() {
                     console.log('git here')
                     const responseData = await response.json();
                     setData(responseData);
+                   
                 } else {
                     console.error('Failed to fetch data');
                 }
@@ -35,6 +79,8 @@ export default function RecipeSearch() {
                 }
             }
         })
+
+        
         
         
         
@@ -42,7 +88,7 @@ export default function RecipeSearch() {
             <>
         <h3>Featured Recipes</h3>
         {/* add recipe card */}
-            <Form className="border p-3 form">
+            <Form onSubmit={handleSubmit}  className="border p-3 form">
                 <FormGroup className="mb-3">
                     <FormLabel>Search by Title: </FormLabel>
                     <FormControl type="text" placeholder="Search by title" />

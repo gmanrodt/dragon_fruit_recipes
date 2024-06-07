@@ -2,6 +2,7 @@ import React, { useState, useEffect, useLocation } from "react"
 import { useNavigate } from 'react-router-dom';
 import AddFormFields from "../componets/AddFormFields";
 import '../style/createRecipe.css'
+import { NavLink } from "react-router-dom";
 export default function CreateRecipe() {
 
 
@@ -36,6 +37,7 @@ export default function CreateRecipe() {
                 // Handle successful form submission
                 console.log(response)
                 console.log('Form data submitted successfully');
+                //history.push('/my-new-page');
             } else {
                 // Handle errors if submission fails
                 console.error('Form data submission failed');

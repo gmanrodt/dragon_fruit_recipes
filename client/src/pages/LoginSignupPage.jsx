@@ -55,6 +55,9 @@ export default function AuthPage() {
                 }
             })
             console.log(response)
+            if ( response && response.ok ){
+                document.location.replace('/user')
+            }
             if (!response.ok) throw new Error('broken')
             const result = await response.json()
             console.log('result')
@@ -62,6 +65,7 @@ export default function AuthPage() {
             //     setMessage("Signup successful")
             // }
             clearForms()
+           
         } catch (err) {
             console.log(err.message)
             console.log('here')
@@ -84,6 +88,9 @@ export default function AuthPage() {
                 }
             })
             console.log(response)
+            if ( response && response.ok ){
+                document.location.replace('/user')
+            }
             if (!response.ok) throw new Error('broken')
                 const result = await response.json()
                 console.log('result')

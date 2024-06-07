@@ -16,10 +16,10 @@ export default function CreateRecipe() {
 
     const handleChange = (e) => {
         setFormData({
-            ...formData,
-            [e.target.name]: e.target.value
+          ...formData,
+          [fieldName]: e.target.value,
         });
-    };
+      };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -68,12 +68,12 @@ export default function CreateRecipe() {
                         <div className="top-row">
                             <label htmlFor="title">Recipe Title: </label>
                             <br/>
-                            <input type="text" id="" placeholder="Please type Dish title" value={formData.title} onChange={handleChange} />
+                            <input type="text" placeholder="Please type Dish title" value={formData.title} onChange={(e) => handleChange(e, 'title')} />
                         </div>
                         <div className="top-row">
                             <label htmlFor="category">Category: </label>
                             <br/>
-                            <select id="dropdown-basic-button" title="Select Category" value={formData.category} onChange={handleChange} >
+                            <select id="dropdown-basic-button" title="Select Category" value={formData.category} onChange={(e) => handleChange(e, 'category')} >
                                 <option value="beef">Beef</option>
                                 <option value="volvo">Chicken</option>
                                 <option value="volvo">Dessert</option>

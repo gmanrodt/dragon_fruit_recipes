@@ -59,6 +59,8 @@ export default function HomePage() {
             </div> */}
 
             <RecipeCard/>
+            <RecipeCard/>
+            <RecipeCard/>
 
 
             {/*TO DO: Uncomment this section below when the commented out logic is uncommented and make sure details below match API details. */}

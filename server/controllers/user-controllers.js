@@ -190,9 +190,7 @@ module.exports = {
       return res.status(500).json({msg: "Could not authenticate user"});
     };
     const decryptedCookie = jwt.verify(cookie, process.env.TOKEN_ENCRYPT_KEY)
-    console.log(decryptedCookie)
     const user = await User.findOne({email: decryptedCookie.email});
-    console.log(user)
     if(!user) {
       return res.status(500).json({msg: "Could not authenticate user"});
     }

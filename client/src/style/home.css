@@ -13,3 +13,8 @@
    max-width: 20vw;
    border-radius: 20%;
 }
+
+.recipeImageReSize {
+   width: 25vw;
+   height: 25vw;
+}

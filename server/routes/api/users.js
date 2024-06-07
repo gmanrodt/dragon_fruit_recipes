@@ -23,19 +23,19 @@ const {
 
 // All user route
 router
-.route("/")
-.get(getUsers)
-.post(createUser);
+  .route("/")
+  .get(getUsers)
+  .post(createUser);
 
 // Login user route
 router
-.route("/login")
-.post(loginUser);
+  .route("/login")
+  .post(loginUser);
 
 // Verify user route
 router
-.route("/verify")
-.get(verifyUser);
+  .route("/verify")
+  .get(verifyUser);
 
 // DELETE ALL
 router

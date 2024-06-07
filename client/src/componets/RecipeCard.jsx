@@ -19,11 +19,11 @@ export default function RecipeCard() {
     }, []);
 
     return (
-        <div className="card">
+        <div className="randomRecipeCard">
             {recipe ? (
                 <>
                     <h2>{recipe.strMeal}</h2>
-                    <img src={recipe.strSource} alt="random recipe"/>
+                    <img src={recipe.strMealThumb} alt="random recipe" className="recipeImageReSize"/>
                 </>
             ) : (
                 <p>Loading...</p>

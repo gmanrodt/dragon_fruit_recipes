@@ -8,7 +8,7 @@ export default function UserInfoPage() {
     const [userData, setUserData] = useState({});
 
     useEffect(() => {
-        fetch('api/something')
+        fetch('api/user')
             .then(response => response.json())
             .then(data => setUserData(data));
     }, []);
@@ -36,6 +36,7 @@ export default function UserInfoPage() {
             <div>You have saved {userData.savedRecipes} recipes!</div>
             <div>You have created {userData.createdRecipes} recipes!</div>
             <button onClick={() => handleDeleteUser(userData.userId)}>Delete User</button>
+            <button>LogOut</button>
         </div>
         </>
     );

@@ -8,7 +8,7 @@ const reviewRoutes = require("./reviews");
 router.use("/users", userRoutes);
 router.use("/recipes", recipeRoutes);
 router.use("/reviews", reviewRoutes);
-router.use((req, res) => res.send("Invalid Route"));
+router.use("*", (req, res) => res.send("Invalid Route"));
 
 // Exporting
 module.exports = router;

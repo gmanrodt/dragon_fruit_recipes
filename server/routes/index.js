@@ -4,7 +4,7 @@ const apiRoutes = require("./api");
 
 // Directing traffic to API routes
 router.use("/api", apiRoutes);
-router.use((req, res) => res.send("Invalid Route!"));
+// router.use((req, res) => res.send("Invalid Route!"));
 
 // Exporting
 module.exports = router;

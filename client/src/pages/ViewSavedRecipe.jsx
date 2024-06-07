@@ -46,8 +46,8 @@ export default function ViewSavedRecipe() {
         </div>
         </div>
        
-  <a className="prev" onclick="plusSlides(-1)">&#10094;</a>
-  <a className="next" onclick="plusSlides(1)">&#10095;</a>
+  <a className="prev" onClick="plusSlides(-1)">&#10094;</a>
+  <a className="next" onClick="plusSlides(1)">&#10095;</a>
             <div className="container-carousel">
                 <input type="radio" name="position" checked />
                 <input type="radio" name="position" />

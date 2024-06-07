@@ -61,39 +61,50 @@ export default function CreateRecipe() {
 
     return (
         <>
-            <h1>Create a Recipe!</h1>
-            <form onSubmit={handleSubmit} className="formParent">
-                <div className="fristThreeFields">
-                    <label htmlFor="title">Recipe Title: </label>
-                    <input type="text" id="" placeholder="Please type Dish title" value={formData.title} onChange={handleChange} />
-
-                    <label htmlFor="category">Category: </label>
-                    <select id="dropdown-basic-button" title="Select Category" value={formData.category} onChange={handleChange} >
-                        <option value="beef">Beef</option>
-                        <option value="volvo">Chicken</option>
-                        <option value="volvo">Dessert</option>
-                        <option value="volvo">Lamb</option>
-                        <option value="volvo">Miscellaneous</option>
-                        <option value="volvo">Pork</option>
-                        <option value="volvo">Seafood</option>
-                        <option value="volvo">Side</option>
-                        <option value="volvo">Starter</option>
-                        <option value="volvo">Vegan</option>
-                        <option value="volvo">Vegetarian</option>
-                        <option value="volvo">Breakfast</option>
-                        <option value="volvo">Goat</option>
-                    </select >
-                    <label htmlFor="instructions">Instructions: </label>
-                    <textarea type="text" id="instructions" placeholder="Please enter Instructions" value={formData.instructions} onChange={handleChange} />
-                </div>
-                <div className="ingredientList">
-                    <div className="rowStyling">
-                        {inputIngredient}
+            <h2>Create a Recipe!</h2>
+            <div className="outer">
+                <form onSubmit={handleSubmit} className="formParent">
+                    <div className="firstThreeFields">
+                        <div className="top-row">
+                            <label htmlFor="title">Recipe Title: </label>
+                            <br/>
+                            <input type="text" id="" placeholder="Please type Dish title" value={formData.title} onChange={handleChange} />
+                        </div>
+                        <div className="top-row">
+                            <label htmlFor="category">Category: </label>
+                            <br/>
+                            <select id="dropdown-basic-button" title="Select Category" value={formData.category} onChange={handleChange} >
+                                <option value="beef">Beef</option>
+                                <option value="volvo">Chicken</option>
+                                <option value="volvo">Dessert</option>
+                                <option value="volvo">Lamb</option>
+                                <option value="volvo">Miscellaneous</option>
+                                <option value="volvo">Pork</option>
+                                <option value="volvo">Seafood</option>
+                                <option value="volvo">Side</option>
+                                <option value="volvo">Starter</option>
+                                <option value="volvo">Vegan</option>
+                                <option value="volvo">Vegetarian</option>
+                                <option value="volvo">Breakfast</option>
+                                <option value="volvo">Goat</option>
+                            </select >
+                        </div>
+                        <div className="top-row">
+                            <label htmlFor="instructions">Instructions: </label>
+                            <br/>
+                            <textarea type="text" id="instructions" placeholder="Please enter Instructions" value={formData.instructions} onChange={handleChange} />
+                        </div>
+                    </div>
+                    <div className="ingredientList">
+                        <div className="rowStyling">
+                            {inputIngredient}
+                        </div>
                     </div>
                     <button onClick={addFields} className="addIngredientButton">Add Another Ingredient</button>
-                </div>
-                <button type="submit" value="Submit">Submit Recipe</button>
-            </form>
+                    <br/>
+                    <button type="submit" value="Submit">Submit Recipe</button>
+                </form>
+            </div>
         </>
     )
 

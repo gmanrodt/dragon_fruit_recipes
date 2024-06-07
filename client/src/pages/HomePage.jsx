@@ -2,6 +2,7 @@ import React, { useState, useEffect, useLocation } from "react";
 import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import "../style/home.css"
+import RecipeCard from "../componets/RecipeCard";
 
 //fixed
 export default function HomePage() {
@@ -34,7 +35,7 @@ export default function HomePage() {
     return (
         <>
             {/* <div class="loader"></div> */}
-            <div className='about'>
+            {/* <div className='about'>
                 <p> Welcome to DragonFruit Delights! This is a page for finding new recipes and sharing your own. Log in or sign up to contribute to our cooking community! </p>
 
           
@@ -55,7 +56,9 @@ export default function HomePage() {
                     <h2>Sample Food</h2>
                     <p>Description of food or something.</p>
                 </div>
-            </div>
+            </div> */}
+
+            <RecipeCard/>
 
 
             {/*TO DO: Uncomment this section below when the commented out logic is uncommented and make sure details below match API details. */}

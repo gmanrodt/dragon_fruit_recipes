@@ -8,31 +8,30 @@ export default function RecipeSearch() {
 
     const [formData, setFormData] = useState({
         title: '',
-        category: ''
+        category: '',
     });
 
-
-    const handleChange = (e) => {
+    const handleChange = (e, fieldName) => {
         setFormData({
-            ...formData,
-            [e.target.name]: e.target.value
+          ...formData,
+          [fieldName]: e.target.value,
         });
-    };
+      };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            const response = await fetch('api/recpies', { //change stuff here
-                method: 'POST',
+            const response = await fetch('api/recipes', { //change stuff here
+                method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(formData)
+                // body: JSON.stringify(formData)
             });
             if (response.ok) {
                 // Handle successful ,form submission
-                document.location.replace('/searchresult')
+                document.location.replace('/results')
                 console.log(response)
                 console.log('Form data submitted successfully');
             } else{
@@ -79,42 +78,18 @@ export default function RecipeSearch() {
     //         }
     //     })
         
-        const [query, setQuery] = useState("");
-        const [results, setResults] = useState([]);
 
-        const handleSubmitSearch = async (e) => {
-            e.preventDefault();
-
-                const response = await fetch(""); // unsure of what my api route is for this page atm. need to check
-                const data = await response.json();
-                setResults(data);
-            } catch (error) {
-                console.error('Error fetching the search results', error);
-            }
-        }
-
-        const handleChange = (e) => {
-            setFormData({
-                ...FormData, title: e.target.value.title, category: e.target.value.category
-            });
-        };
-
-        {[Array].map((results, index) => {
-            const searchResults = index;
-        })}
 
         return (
             <>
         <h3>Featured Recipes</h3>
         {/* add recipe card */}
-            <Form onSubmit={handleSubmit}  className="border p-3 form">
-                <FormGroup className="mb-3">
-                    <FormLabel>Search by Title: </FormLabel>
-                    <FormControl type="text" placeholder="Search by title" />
-                </FormGroup>
-                <FormGroup className="mb-3">
-                    <FormLabel>Search by Category: </FormLabel>
-                    <select id="dropdown-basic-button" title="Select Category">
+            <form onSubmit={handleSubmit}  className="border p-3 form">
+            <label htmlFor="title">Recipe Title: </label>
+                            <br/>
+                            <input type="text" placeholder="Please type Dish title" value={formData.title} onChange={(e) => handleChange(e, 'title')} />
+                    <label>Search by Category: </label>
+                    <select id="dropdown-basic-button" title="Select Category" onChange={(e) => handleChange(e, 'category')} value={formData.category}>
                         <option value="beef">Beef</option>
                         <option value="volvo">Chicken</option>
                         <option value="volvo">Dessert</option>
@@ -129,9 +104,8 @@ export default function RecipeSearch() {
                         <option value="volvo">Breakfast</option>
                         <option value="volvo">Goat</option>
                     </select >
-                </FormGroup>
-                <Button type="submit" variant="primary">Submit</Button>
-            </Form>
+                <button type="submit" variant="primary">Submit</button>
+            </form>
         </>
     )
     

@@ -5,50 +5,40 @@ import axios from "axios";
 import '../style/viewrecipes.css'
 
 export default function ViewCreatedRecipe() {
-
-  const [recipes, setRecipes] = useState;
+  const [recipes, setRecipes] = useState([]);
+  const [loading, setLoading] = useState(true);
+  
   useEffect(() => {
     const fetchCreatedRecipes = async () => {
       try {
-        const response = await axios.get('api/recipe'); //fixed this 
-        setRecipes(response.data)
-      }
-      catch (error) {
-        console.log('error fetching recipes', error)
+        const response = await axios.get('api/recipe');
+        setRecipes(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.log('error fetching recipes', error);
+        setLoading(false);
       }
     };
+  
     fetchCreatedRecipes();
-  }, [])
-
+  }, []);
+  
   return (
     <>
       <UserNav />
       <h3>Created Recipes</h3>
-      <ul>
-                {recipes.map(recipes => (
-                 <li key={recipes._id}>{recipes.title}</li>
-           ))}
-          </ul> */}
-          <div className="recipe-card-container">
-                <div className='recipe-card'>
-                    <img src="/assets/dragonfruit.png" alt="sample recipe" className="recipeImg"/>
-                    <h2>Sample Food</h2>
-                    <p>Description of food or something.</p>
-                </div>
-                <div className='recipe-card'>
-                    <img src="/assets/dragonfruit.png" alt="sample recipe" className="recipeImg"/>
-                    <h2>Sample Food</h2>
-                    <p>Description of food or something.</p>
-                </div>
-                <div className='recipe-card'>
-                    <img src="/assets/dragonfruit.png" alt="sample recipe" className="recipeImg"/>
-                    <h2>Sample Food</h2>
-                    <p>Description of food or something.</p>
-                </div>
-            </div>
-            
-        </>
-    )
-
-
+      {loading ? (
+        <p>Loading...</p>
+      ) : (
+        <ul>
+          {recipes.map(recipe => (
+            <li key={recipe._id}>{recipe.title}</li>
+          ))}
+        </ul>
+      )}
+      <div className="recipe-card-container">
+        {/* Additional recipe card components */}
+      </div>
+    </>
+  );
 }

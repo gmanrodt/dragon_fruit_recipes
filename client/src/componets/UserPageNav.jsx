@@ -15,7 +15,7 @@ export default function UserPageNav(){
        <nav className="usernav">
              <div className="usernav-container">
 
-                <NavLink to="/user">User Info   </NavLink>
+                <NavLink to="/user/userinfo">User Info   </NavLink>
                 <span className="user-span">|</span>
                 <NavLink to="/user/created">   Created Recipes  </NavLink>
                 <span className="user-span">|</span>

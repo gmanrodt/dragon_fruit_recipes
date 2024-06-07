@@ -2,7 +2,7 @@ import React, { useState, useEffect, useLocation } from "react";
 import { NavLink  } from 'react-router-dom';
 import UserNav from '../componets/UserPageNav'
 import axios from "axios";
-import '../style/viewrecipes.css'
+import '../style/viewsaved.css'
 
 
 export default function ViewSavedRecipe() {
@@ -31,7 +31,7 @@ export default function ViewSavedRecipe() {
                     <li key={recipes._id}>{recipes.title}</li>
                 ))}
             </ul> */}
-               <div class='recipecards'>
+               {/* <div class='recipecards'>
           <div class='recipe1'>
            <img src="/assets/dragonfruit.png" alt="Logo" id="logo"/>
            <p>Title</p>
@@ -47,7 +47,51 @@ export default function ViewSavedRecipe() {
         </div>
        
   <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-  <a class="next" onclick="plusSlides(1)">&#10095;</a>
+  <a class="next" onclick="plusSlides(1)">&#10095;</a> */}
+            <div className="container-carousel">
+                <input type="radio" name="position" checked />
+                <input type="radio" name="position" />
+                <input type="radio" name="position" />
+                <input type="radio" name="position" />
+                <input type="radio" name="position" />
+                <div id="carousel">
+                    <div class="item">
+                        <div className='recipe-card'>
+                            <img src="/assets/dragonfruit.png" alt="sample recipe" className="recipeImg"/>
+                            <h2>Sample Food</h2>
+                            <p>Description of food or something.</p>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div className='recipe-card'>
+                            <img src="/assets/dragonfruit.png" alt="sample recipe" className="recipeImg"/>
+                            <h2>Sample Food</h2>
+                            <p>Description of food or something.</p>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div className='recipe-card'>
+                            <img src="/assets/dragonfruit.png" alt="sample recipe" className="recipeImg"/>
+                            <h2>Sample Food</h2>
+                            <p>Description of food or something.</p>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div className='recipe-card'>
+                            <img src="/assets/dragonfruit.png" alt="sample recipe" className="recipeImg"/>
+                            <h2>Sample Food</h2>
+                            <p>Description of food or something.</p>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div className='recipe-card'>
+                        <img src="/assets/dragonfruit.png" alt="sample recipe" className="recipeImg"/>
+                        <h2>Sample Food</h2>
+                        <p>Description of food or something.</p>
+                    </div>
+                    </div>
+                </div>
+            </div>
         </>
     )
 

@@ -1,7 +1,5 @@
 // Requring in models, bcrypt, jwt, path, and dotenv
-const User = require("../models/User");
-const SavedRecipe = require("../models/SavedRecipe");
-const CreatedRecipe = require("../models/CreatedRecipe");
+const {User, Recipe, Review} = require("../models");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const path = require('path');
@@ -20,8 +18,9 @@ module.exports = {
   async getUsers(req, res) {
     try {
       const user = await User.find()
-        .populate({path: "savedRecipes"})
         .populate({path: "createdRecipes"})
+        .populate({path: "savedRecipes"})
+        .populate({path: "reviews"});
       res.status(200).json(user);
     } catch(err) {
       res.status(500).json({msg: "Get users: " + err.message});
@@ -32,14 +31,77 @@ module.exports = {
   async getUser(req, res) {
     try {
       const user = await User.findOne({_id: req.params.userId})
-        .populate({path: "savedRecipes"})
         .populate({path: "createdRecipes"})
+        .populate({path: "savedRecipes"})
+        .populate({path: "reviews"});
       if(!user) {
         return res.status(404).json({msg: "No user found with that ID"});
       };
       res.status(200).json(user);
     } catch(err) {
       res.status(500).json({msg: "Get user: " + err.message});
+    };
+  },
+
+  // Get all saves
+  async getSaves(req, res) {
+    try {
+      const user = await User.find({_id: req.params.userId})
+        .populate({path: "savedRecipes"})
+        .select("-_id savedRecipes");
+      if(!user) {
+        return res.status(404).json({msg: "No user found with that ID"});
+      };
+      res.status(200).json(user);
+    } catch(err) {
+      res.status(500).json({msg: "Get saves: " + err.message});
+    };
+  },
+
+  // Get single save
+  async getSave(req, res) {
+    try {
+      const user = await User.findOne({_id: req.params.userId})
+        .populate({path: "savedRecipes", match: { _id: req.params.savedId }})
+        .select("-_id savedRecipes");
+      if(!user) {
+        return res.status(404).json({msg: "No saved recipe found with that ID"});
+      };
+      res.status(200).json(user);
+    } catch(err) {
+      res.status(500).json({msg: "Get save: " + err.message});
+    };
+  },
+
+  // Get all creates
+  async getCreates(req, res) {
+    try {
+      const user = await User.findOne({_id: req.params.userId})
+        .populate({path: "createdRecipes"})
+        .populate({path: "reviews"})
+        .select("-_id createddRecipes");
+      if(!user) {
+        return res.status(404).json({msg: "No user found with that ID"});
+      };
+      res.status(200).json(user);
+    } catch(err) {
+      res.status(500).json({msg: "Get creates: " + err.message});
+    };
+  },
+
+  // Get single create
+  async getCreate(req, res) {
+    try {
+      const user = await User.findOne({_id: req.params.userId})
+        .populate({path: "createdRecipes"})
+        .populate({path: "reviews"})
+        .select("-_id createddRecipes");
+      if(!user) {
+        return res.status(404).json({msg: "No created recipe found with that ID"});
+      };
+      res.status(200).json(user);
+    } catch(err) {
+      res.status(500).json({msg: "Get create: " + err.message});
     };
   },
 
@@ -57,6 +119,7 @@ module.exports = {
         })
         .json(user);
     } catch(err) {
+      console.log(err)
       res.status(500).json({msg: "Create user: " + err.message});
     };
   },
@@ -72,7 +135,9 @@ module.exports = {
       if(!user) {
         return res.status(404).json({msg: "No user found with that ID"});
       };
-      user = await user.save();
+      if(req.body.password){
+        user = await user.save();
+      }
       res.status(200).json(user);
     } catch(err) {
       res.status(500).json({msg: "Update user: " + err.message});
@@ -86,10 +151,13 @@ module.exports = {
       if(!user) {
         return res.status(404).json({msg: "No user found with that ID"});
       };
-      await SavedRecipe.deleteMany({_id: {$in: user.savedRecipes.reviews}});
-      await SavedRecipe.deleteMany({_id: {$in: user.savedRecipes}});
-      await CreatedRecipe.deleteMany({_id: {$in: user.createdRecipes.reviews}});
-      await CreatedRecipe.deleteMany({_id: {$in: user.createdRecipes}});
+      await Recipe.deleteMany({_id: {$in: user.createdRecipes}});
+      await Review.deleteMany({_id: {$in: user.reviews}});
+      await Recipe.findOneAndUpdate(
+        {_id: req.params.userId},
+        {$pull: user.savedRecipes},
+        {runValidators: true, new: true}
+      );
       res.status(200).json({msg: "User successfully deleted"})
     } catch(err) {
       res.status(500).json({msg: "Delete user: " + err.message});
@@ -99,10 +167,9 @@ module.exports = {
   // Login user
   async loginUser(req, res) {
     try {
-      let user = await User.findOne({email: req.body.email});
+      let user = await User.findOne({username: req.body.username});
       if(!(await bcrypt.compare(req.body.password, user.password))) throw new Error();
       const token = await createToken(user);
-      // user = await user.save(); <------------- MAYBE
       res
         .status(200)
         .cookie("auth-cookie", token, {
@@ -116,6 +183,7 @@ module.exports = {
     };
   },
 
+  // Verify user
   async verifyUser(req, res) {
     const cookie = req.cookies["auth-cookie"];
     if(!cookie) {
@@ -127,5 +195,17 @@ module.exports = {
       return res.status(500).json({msg: "Could not authenticate user"});
     }
     res.status(200).json({msg: "Successfully verified"});
+  },
+
+  // DELETE ALL USERS/RECIPES/REVIES
+  async deleteAll(req, res) {
+    try {
+      await User.deleteMany({});
+      await Recipe.deleteMany({});
+      await Review.deleteMany({});
+      res.status(200).json({ msg: "All users, recipes, and reviews successfully deleted" });
+    } catch(err) {
+      res.status(500).json({ msg: "Delete all: " + err.message });
+    }
   }
 };

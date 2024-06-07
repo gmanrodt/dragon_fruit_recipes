@@ -38,7 +38,7 @@ function App() {
             <Route path="user/userinfo" element={<UserInfoPage />} />
             <Route path="user/created" element={<ViewCreatedRecipe />} />
             <Route path="user/saved" element={<VeiwSavedRecipe />} />
-            <Route path="*" element={<HomePage />} /> {/* <--- //! TODO*/}
+            <Route path="*" element={<HomePage />} />
           </Routes>
           <Footer />
         </BrowserRouter>

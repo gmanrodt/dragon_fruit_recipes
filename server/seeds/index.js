@@ -1,5 +1,5 @@
 // Requiring in connection, model, and database
-const connection = require("../config/connection");
+const connection = require("../config/connections");
 const Recipe = require("../models/Recipe");
 const recipeData = require("./recipes.json");
 
@@ -19,9 +19,9 @@ connection.once('open', async() => {
     await connection.db.dropCollection("users");
   }
 
-  const recipesIngredients = [];
-  const recipesMeasurements = [];
-  
+  // Iterating over each recipe
+  const recipesModellized = [];
+
   recipeData.forEach((recipe) => {
     const ingredients = [];
     const measurements = [];
@@ -35,13 +35,20 @@ connection.once('open', async() => {
         measurements.push(measurement);
       }
     }
-    recipesIngredients.push(ingredients);
-    recipesMeasurements.push(measurements);
+    const recipeModellized = {
+      title: recipe.title,
+      category: recipe.category,
+      instructions: recipe.instructions,
+      ingredients: ingredients,
+      measurements: measurements,
+      picture: recipe.picture
+    };
+    recipesModellized.push(recipeModellized);
   });
   
   // Creating new collection
   try {
-    await Recipe.insertMany(recipeData)
+    await Recipe.insertMany(recipesModellized)
     console.log("Recipe seeding successful")
   } catch(err){
     console.log("Recipe seeding failed: " + err.message)

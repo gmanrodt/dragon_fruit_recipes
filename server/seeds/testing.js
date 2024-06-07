@@ -1,34 +1,32 @@
 const Recipe = require("../models/Recipe");
 const recipeData = require("./recipes.json");
 
-const recipesIngredients = [];
-const recipesMeasurements = [];
+const recipesModellized = [];
 
 recipeData.forEach((recipe) => {
   const ingredients = [];
-  for (let i = 1; i <= 20; i++) {
-    const ingredientKey = `strIngredient${i}`;
-    const ingredient = recipe[ingredientKey];
-    if (ingredient) {
-      ingredients.push(ingredient);
-    }
-  }
-  recipesIngredients.push(ingredients);
-});
-
-
-recipeData.forEach((recipe) => {
   const measurements = [];
   for (let i = 1; i <= 20; i++) {
+    const ingredientKey = `strIngredient${i}`;
     const measurementKey = `strMeasure${i}`;
+    const ingredient = recipe[ingredientKey];
     const measurement = recipe[measurementKey];
-    if (measurement) {
+    if (ingredient && measurement) {
+      ingredients.push(ingredient);
       measurements.push(measurement);
     }
   }
-  recipesMeasurements.push(measurements);
+  const recipeModellized = {
+    title: recipe.title,
+    category: recipe.category,
+    instructions: recipe.instructions,
+    ingredients: ingredients,
+    measurements: measurements,
+    picture: recipe.picture
+  };
+  recipesModellized.push(recipeModellized);
 });
-      
-      
-console.log(recipesMeasurements[0]);
-console.log(recipesIngredients[0]);
+
+console.log(recipesModellized[0]);
+
+

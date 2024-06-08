@@ -117,7 +117,7 @@ module.exports = {
           httpOnly: false,
           secure: process.env.NODE_ENV === "production"
         })
-        .json(user);
+        .json({user: user, status: "success"});
     } catch(err) {
       console.log(err)
       res.status(500).json({msg: "Create user: " + err.message});
@@ -177,7 +177,7 @@ module.exports = {
           httpOnly: false,
           secure: process.env.NODE_ENV === "production"
         })
-        .json({user: user})
+        .json({user: user, status: "success"})
     } catch(err) {
       res.status(500).json({msg: "Login user: " + err.message});
     };

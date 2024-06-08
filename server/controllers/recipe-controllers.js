@@ -42,8 +42,6 @@ module.exports = {
 
   // Create recipe
   async createRecipe(req, res) {
-    console.log("here")
-    console.log(req.body)
     try {
       const recipe = await Recipe.create(req.body);
       const user = await User.findOneAndUpdate(

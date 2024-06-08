@@ -65,7 +65,6 @@ export default function AuthPage() {
             //     setMessage("Signup successful")
             // }
             clearForms()
-           
         } catch (err) {
             console.log(err.message)
             console.log('here')

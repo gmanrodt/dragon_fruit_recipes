@@ -5,6 +5,7 @@ const {
   getRecipes,
   saveRecipe,
   databaseRecipes,
+  getByCategory
 } = require("../../controllers/recipe-controllers");
 const {
   getReview,
@@ -18,7 +19,8 @@ const {
 router
   .route("/")
   .get(getRecipes)
-  .post(databaseRecipes);
+  .post(databaseRecipes)
+  .get(getByCategory);
 
 // Single route
 router

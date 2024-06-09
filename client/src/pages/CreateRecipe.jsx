@@ -6,6 +6,9 @@ import '../style/createRecipe.css'
 
 export default function CreateRecipe() {
 
+    const [message, setMessage] = useState("");
+    const [errorMessage, setErrorMessage] = useState('');
+
     const { currentUser } = useAppContext()
     const [inputIngredient, setInputIngredient] = useState([]);
     const [formData, setFormData] = useState({
@@ -37,15 +40,21 @@ export default function CreateRecipe() {
                 body: JSON.stringify(formData)
             });
             if (response.ok) {
+                const result = await response.json();
                 // Handle successful form submission
-                console.log(response)
+                setMessage("Recipe created successfully!");
+                //console.log("Result is", result);
                 console.log('Form data submitted successfully');
+                window.location.href = "/recipe/" + result._id;
                 //history.push('/my-new-page');
             } else {
+                const result = await response.json();
                 // Handle errors if submission fails
+                setErrorMessage("Failed to create recipe: " + result.msg);
                 console.error('Form data submission failed');
             }
         } catch (error) {
+            setErrorMessage("Failed to create recipe: " + error);
             console.error('An error occurred while submitting form data:', error);
         }
     };
@@ -65,12 +74,13 @@ export default function CreateRecipe() {
                         <div className="top-row">
                             <label htmlFor="title">Recipe Title: </label>
                             <br/>
-                            <input type="text" placeholder="Please type Dish title" value={formData.title} onChange={(e) => handleChange(e, 'title')} />
+                            <input required type="text" placeholder="Please type Dish title" value={formData.title} onChange={(e) => handleChange(e, 'title')} />
                         </div>
                         <div className="top-row">
                             <label htmlFor="dropdown-basic-button">Category: </label>
                             <br/>
-                            <select id="dropdown-basic-button" title="Select Category" value={formData.category} onChange={(e) => handleChange(e, 'category')} >
+                            <select required id="dropdown-basic-button" title="Select Category" value={formData.category} onChange={(e) => handleChange(e, 'category')} >
+                                <option value=""></option>
                                 <option value="Beef">Beef</option>
                                 <option value="Breakfast">Breakfast</option>
                                 <option value="Chicken">Chicken</option>
@@ -89,7 +99,7 @@ export default function CreateRecipe() {
                         <div className="top-row">
                             <label htmlFor="instructions">Instructions: </label>
                             <br/>
-                            <textarea type="text" id="instructions" rows="15" placeholder="Please enter Instructions" value={formData.instructions} onChange={(e) => handleChange(e, 'instructions')}  />
+                            <textarea required type="text" id="instructions" rows="15" placeholder="Please enter Instructions" value={formData.instructions} onChange={(e) => handleChange(e, 'instructions')}  />
                         </div>
                     </div>
                     <div className="ingredientList">
@@ -101,6 +111,12 @@ export default function CreateRecipe() {
                     <br/>
                     <button type="submit" value="Submit">Submit Recipe</button>
                 </form>
+            </div>
+            <div className="errorMessageLogin info">
+                {message && (<p>{message}</p>)}
+            </div>
+            <div className="errorMessageLogin danger">
+                {errorMessage && (<p>{errorMessage}</p>)}
             </div>
         </>
     )

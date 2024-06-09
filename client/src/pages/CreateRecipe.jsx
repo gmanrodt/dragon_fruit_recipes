@@ -89,7 +89,7 @@ export default function CreateRecipe() {
                         <div className="top-row">
                             <label htmlFor="instructions">Instructions: </label>
                             <br/>
-                            <textarea type="text" id="instructions" placeholder="Please enter Instructions" value={formData.instructions} onChange={(e) => handleChange(e, 'instructions')}  />
+                            <textarea type="text" id="instructions" rows="15" placeholder="Please enter Instructions" value={formData.instructions} onChange={(e) => handleChange(e, 'instructions')}  />
                         </div>
                     </div>
                     <div className="ingredientList">

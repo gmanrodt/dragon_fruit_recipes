@@ -20,12 +20,13 @@ export default function RecipeCard() {
     }, []);
 
     return (
-        <div className="randomRecipeCard">
+     
+        <div className="randomRecipeCard recipe-card">
             {recipe ? (
                 <>
                  <NavLink to='/recipe'> 
                     <h2>{recipe.strMeal}</h2>
-                    <img src={recipe.strMealThumb} alt="random recipe" className="recipeImageReSize"/>
+                    <img src={recipe.strMealThumb} alt="random recipe" className="recipeImg"/>
                    </NavLink>
                 </>
             ) : (
@@ -33,5 +34,6 @@ export default function RecipeCard() {
             )}
             {errorMessage && <p>{errorMessage}</p>}
         </div>
+    
     );
 }

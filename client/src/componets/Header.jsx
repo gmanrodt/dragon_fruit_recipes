@@ -1,15 +1,17 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
-import { useState, useEffect } from "react";
-import "../style/header.css"
-
-import HomePage from "../pages/HomePage"
-import RecipeSearchPage from "../pages/RecipeSearchPage"
-import CreateRecipe from "../pages/CreateRecipe"
-import LoginSignupPage from "../pages/LoginSignupPage"
-import UserPage from "../pages/UserPage"
+import {NavLink} from "react-router-dom";
+import {useAppContext} from "../providers/AppProvider";
+import Cookie from "js-cookie";
+import "../style/header.css";
 
 export default function Header() {
+
+  const {currentUser} = useAppContext();
+
+  function logout(){
+    Cookie.remove("auth-cookie")
+    window.location.href = "/"
+  }
 
   return (
     
@@ -18,19 +20,35 @@ export default function Header() {
         <img src="/assets/dragonfruit.png" alt="Logo" id="logo"/>
         <h1 className="flex">DragonFruit Delights</h1> 
         <div className="links">
-          <div className="login">
-            <NavLink to="/login">   Login/Sign up   </NavLink>
-            <span>|</span>
-            <NavLink to="/user">   Profile   </NavLink>
-          </div>
-          <br/>
-          <div className="navlinks">
-            <NavLink to="/">Home   </NavLink>
-            <span>|</span>
-            <NavLink to="/search">   Search Recipes  </NavLink>
-            <span>|</span>
-            <NavLink to="/create">   Create Recipes   </NavLink>
-          </div>
+        {(currentUser === undefined || currentUser === null) ? (
+          <>
+            <div className="login">
+              <NavLink to="/login">   Login/Sign up   </NavLink>
+            </div>
+            <br/>
+            <div className="navlinks">
+              <NavLink to="/">   Home   </NavLink>
+              <span>|</span>
+              <NavLink to="/search">   Search Recipes  </NavLink>
+            </div>
+          </>
+          ) : (
+            <>
+              <div className="login">
+              <NavLink to="/login" onClick={logout}>   Logout   </NavLink>
+              <span>|</span>
+              <NavLink to="/user">   Profile   </NavLink>
+              </div>
+              <br/>
+              <div className="navlinks">
+              <NavLink to="/">   Home   </NavLink>
+              <span>|</span>
+              <NavLink to="/search">   Search Recipes  </NavLink>
+              <span>|</span>
+              <NavLink to="/create">   Create Recipes   </NavLink>
+              </div>
+            </>
+          )}
         </div>
       </nav>
     </div>

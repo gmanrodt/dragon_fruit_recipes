@@ -1,9 +1,5 @@
-// TO DO: import API content
-
-// TO DO: check that these match what we want to display of the API
 import { NavLink } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
-import SingleRecipePage from '../pages/SingleRecipePage'
 
 export default function RecipeCard() {
     const [recipe, setRecipe] = useState(null);
@@ -22,12 +18,10 @@ export default function RecipeCard() {
     return (
         <div className="randomRecipeCard">
             {recipe ? (
-                <>
-                 <NavLink to='/recipe'> 
-                    <h2>{recipe.strMeal}</h2>
-                    <img src={recipe.strMealThumb} alt="random recipe" className="recipeImageReSize"/>
-                   </NavLink>
-                </>
+                <NavLink to={`/recipe/${recipe.strMeal.replace(/ /g, '')}`}> 
+                <h2>{recipe.strMeal}</h2>
+                <img src={recipe.strMealThumb} alt="random recipe" className="recipeImageReSize"/>
+                </NavLink>
             ) : (
                 <p>Loading...</p>
             )}

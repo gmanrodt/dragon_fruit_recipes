@@ -9,12 +9,12 @@
    margin: 30px;
 }
 
-.recipeImg {
-   max-width: 20vw;
-   border-radius: 20%;
+.randomRecipeCard {
+   padding: 1rem;
 }
 
 .recipeImageReSize {
    width: 25vw;
    height: 25vw;
+   border-radius: 30px;
 }

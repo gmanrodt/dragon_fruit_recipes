@@ -1,7 +1,6 @@
 import { createContext, useContext, useState, useEffect } from "react"
 import Cookie from "js-cookie"
 
-//AppContect bc file is called AppProvider - App can be anything but have them matching
 const AppContext = createContext({})
 export const useAppContext = () => useContext(AppContext)
 

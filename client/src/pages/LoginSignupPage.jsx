@@ -1,29 +1,19 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom";
-import { validateEmail, checkPassword } from '../utils/helpers';
 import "../style/login.css"
 
 
 export default function AuthPage() {
 
     const navigate = useNavigate();
-
+    const [message, setMessage] = useState("");
     const [formData, setFormData] = useState({
         signupUsername: "", signupEmail: "", signupPassword: "", loginUsername: "", loginPassword: ""
     })
 
-    const [message, setMessage] = useState("");
-
     function clearForms() {
         setFormData({ signupUsername: "", signupEmail: "", signupPassword: "", loginUsername: "", loginPassword: "" })
     }
-
-
-    const [username, setUsername] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-
-    const [errorMessage, setErrorMessage] = useState('');
 
     function handleInputChange(event) {
         setMessage("")
@@ -49,7 +39,8 @@ export default function AuthPage() {
             })
             const result = await response.json()
             if(result.status === "success"){
-                setMessage("Signup successful")
+                setMessage("Signup successful");
+                window.location.href = "/user";
             } else {
                 throw new Error()
             }
@@ -77,7 +68,8 @@ export default function AuthPage() {
             console.log(result)
             clearForms()
             if( result.status === 'success' ){
-                navigate("/user");
+                setMessage("Login successful");
+                window.location.href = "/user";
             } else {
                 throw new Error()
             }

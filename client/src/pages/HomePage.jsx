@@ -34,34 +34,20 @@ export default function HomePage() {
 
     return (
         <>
-            {/* <div class="loader"></div> */}
-            {/* <div className='about'>
+            <div className='about'>
                 <p> Welcome to DragonFruit Delights! This is a page for finding new recipes and sharing your own. Log in or sign up to contribute to our cooking community! </p>
-
-          
             </div>
             <div className="recipe-card-container">
                 <div className='recipe-card'>
-                    <img src="/assets/dragonfruit.png" alt="sample recipe" className="recipeImg"/>
-                    <h2>Sample Food</h2>
-                    <p>Description of food or something.</p>
+                    <RecipeCard />
                 </div>
                 <div className='recipe-card'>
-                    <img src="/assets/dragonfruit.png" alt="sample recipe" className="recipeImg"/>
-                    <h2>Sample Food</h2>
-                    <p>Description of food or something.</p>
+                <RecipeCard />
                 </div>
                 <div className='recipe-card'>
-                    <img src="/assets/dragonfruit.png" alt="sample recipe" className="recipeImg"/>
-                    <h2>Sample Food</h2>
-                    <p>Description of food or something.</p>
+                <RecipeCard />
                 </div>
-            </div> */}
-
-            <RecipeCard/>
-            <RecipeCard/>
-            <RecipeCard/>
-
+            </div>
 
             {/*TO DO: Uncomment this section below when the commented out logic is uncommented and make sure details below match API details. */}
 

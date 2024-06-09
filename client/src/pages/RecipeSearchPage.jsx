@@ -82,31 +82,39 @@ export default function RecipeSearch() {
 
         return (
             <>
-        <h3>Featured Recipes</h3>
-        {/* add recipe card */}
-            <form onSubmit={handleSubmit}  className="border p-3 form">
-            <label htmlFor="title">Recipe Title: </label>
-                            <br/>
-                            <input type="text" placeholder="Please type Dish title" value={formData.title} onChange={(e) => handleChange(e, 'title')} />
-                    <label>Search by Category: </label>
-                    <select id="dropdown-basic-button" title="Select Category" onChange={(e) => handleChange(e, 'category')} value={formData.category}>
-                        <option value="beef">Beef</option>
-                        <option value="volvo">Chicken</option>
-                        <option value="volvo">Dessert</option>
-                        <option value="volvo">Lamb</option>
-                        <option value="volvo">Miscellaneous</option>
-                        <option value="volvo">Pork</option>
-                        <option value="volvo">Seafood</option>
-                        <option value="volvo">Side</option>
-                        <option value="volvo">Starter</option>
-                        <option value="volvo">Vegan</option>
-                        <option value="volvo">Vegetarian</option>
-                        <option value="volvo">Breakfast</option>
-                        <option value="volvo">Goat</option>
-                    </select >
-                <button type="submit" variant="primary">Submit</button>
-            </form>
-        </>
+                <h2>Search Recipes</h2>
+                <div className="outer">
+                    <form onSubmit={handleSubmit}  className="border p-3 form formParent">
+                        <div className="firstThreeFields">
+                            <div className="search-b">
+                                <label htmlFor="title">Recipe Title: </label>
+                                <br/>
+                                <input type="text" placeholder="Please type Dish title" value={formData.title} onChange={(e) => handleChange(e, 'title')} />
+                            </div>
+                            <div className="search-b">
+                                <label>Search by Category: </label>
+                                <br/>
+                                <select id="dropdown-basic-button" title="Select Category" onChange={(e) => handleChange(e, 'category')} value={formData.category}>
+                                    <option value="beef">Beef</option>
+                                    <option value="volvo">Chicken</option>
+                                    <option value="volvo">Dessert</option>
+                                    <option value="volvo">Lamb</option>
+                                    <option value="volvo">Miscellaneous</option>
+                                    <option value="volvo">Pork</option>
+                                    <option value="volvo">Seafood</option>
+                                    <option value="volvo">Side</option>
+                                    <option value="volvo">Starter</option>
+                                    <option value="volvo">Vegan</option>
+                                    <option value="volvo">Vegetarian</option>
+                                    <option value="volvo">Breakfast</option>
+                                    <option value="volvo">Goat</option>
+                                </select >
+                            </div>
+                        </div>
+                        <button type="submit" variant="primary">Submit</button>
+                    </form>
+                </div>
+            </>
     )
     
 };

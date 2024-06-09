@@ -7,6 +7,8 @@ export default function AuthPage() {
 
     const navigate = useNavigate();
     const [message, setMessage] = useState("");
+    const [errorMessage, setErrorMessage] = useState('');
+
     const [formData, setFormData] = useState({
         signupUsername: "", signupEmail: "", signupPassword: "", loginUsername: "", loginPassword: ""
     })
@@ -42,12 +44,13 @@ export default function AuthPage() {
                 setMessage("Signup successful");
                 window.location.href = "/user";
             } else {
-                throw new Error()
+                console.log(result.msg);
+                setErrorMessage("We could not sign you up with the credentials provided");
             }
             clearForms()
         } catch(err) {
-            console.log(err)
-            setMessage("We could not sign you up with the credentials provided")
+            console.log("And the err is: ",err)
+            setErrorMessage("We could not sign you up with the credentials provided");
         }
     }
 
@@ -75,7 +78,7 @@ export default function AuthPage() {
             }
         } catch(err){
             console.log(err)
-            setMessage("We could not log you in with the credentials provided")
+            setErrorMessage("We could not log you in with the credentials provided")
         }
     }
 
@@ -125,10 +128,11 @@ export default function AuthPage() {
                     </form>
                 </div>
             </div>
-            <div className="errorMessageLogin">
-                {message.length > 0 && (
-                    <p>{message}</p>
-                )}
+            <div className="errorMessageLogin info">
+                {message && (<p>{message}</p>)}
+            </div>
+            <div className="errorMessageLogin danger">
+                {errorMessage && (<p>{errorMessage}</p>)}
             </div>
         </>
     )

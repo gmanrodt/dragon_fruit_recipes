@@ -28,3 +28,9 @@ input[type="radio"] {
   font-size: 2rem;
   margin: 5px;
 }
+.danger{
+  color:red;
+}
+.info{
+  color:blue;
+}

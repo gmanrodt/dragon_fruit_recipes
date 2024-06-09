@@ -14,30 +14,14 @@ export default function HomePage() {
     }, []);
 
 
-    //TO DO: replace dataset with API details then uncomment the logic below
-
-    // const [ featuredRecipe, setFeaturedRecipe ] = useState()
-
-    // function getRandomRecipe(){
-    //     const randomIdx = getRandomNumber(0, dataset.length - 1)
-    //     const recipe = dataset[randomIdx]
-    //     setFeaturedRecipe(recipe)
-    // }
-
-    // function getRandomNumber(min, max){
-    //     return Math.floor(Math.random() * (max - min + 1) + min)
-    // }
-
-    // useEffect(() => {
-    //     getRandomRecipe()
-    // },[])
-
     return (
         <>
             <div className='about'>
                 <p> Welcome to DragonFruit Delights! This is a page for finding new recipes and sharing your own. Log in or sign up to contribute to our cooking community! </p>
             </div>
+        
             <div className="recipe-card-container">
+
                 <div className='recipe-card'>
                     <RecipeCard />
                 </div>

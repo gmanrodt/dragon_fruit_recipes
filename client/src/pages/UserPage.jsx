@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useLocation } from "react";
 import { Routes, Route } from "react-router-dom";
+import RecipeCard from "../componets/RecipeCard";
 
 import { useNavigate } from 'react-router-dom';
 import UserNav from '../componets/UserPageNav'
@@ -18,19 +19,11 @@ export default function UserPage() {
 
     return(
         <>
-        <UserNav/>
-        <div className="recipe-card-container">
-            <div className='recipe-card'>
-                <img src="/assets/dragonfruit.png" alt="sample recipe" className="recipeImg"/>
-                <h2>Sample Food</h2>
-                <p>Description of food or something.</p>
+            <UserNav/>
+            <div className="recipe-card-container">
+                <RecipeCard/>
+                <RecipeCard/>
             </div>
-            <div className='recipe-card'>
-                <img src="/assets/dragonfruit.png" alt="sample recipe" className="recipeImg"/>
-                <h2>Sample Food</h2>
-                <p>Description of food or something.</p>
-            </div>
-        </div>
         </>
     )
 

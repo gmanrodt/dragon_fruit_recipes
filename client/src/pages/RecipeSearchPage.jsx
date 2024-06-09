@@ -35,6 +35,7 @@ export default function RecipeSearch() {
 
         return (
             <>
+
                 <h3>Featured Recipes</h3>
                 <form onSubmit={handleSubmit}  className="border p-3 form">
                     <label htmlFor="dropdown-basic-button">Search by Category: </label>
@@ -73,6 +74,8 @@ export default function RecipeSearch() {
                     )}
                     {errorMessage && <p>{errorMessage}</p>}
                     </div>
+
+
                 </div>
             </>
     )

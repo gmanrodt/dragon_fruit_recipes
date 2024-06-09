@@ -10,14 +10,13 @@ export default function ViewRecipes() {
       .then(response => response.json())
       .then(data => {
         setRecipe(data)
-        console.log(data)
       })
       .catch(error => {
         setErrorMessage("Failed to load recipes");
         console.error('Error:', error);
       });
   }, []);
-  // title.replace(/ /g, '')
+
   return (
     <div className="bodyWidth">
       {recipe.length > 0 ? (

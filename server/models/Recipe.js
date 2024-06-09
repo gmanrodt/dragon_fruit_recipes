@@ -45,4 +45,3 @@ const Recipe = new model("recipe", recipeSchema);
 
 // Exporting model
 module.exports = Recipe;
-

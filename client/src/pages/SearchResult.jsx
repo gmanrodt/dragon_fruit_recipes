@@ -10,7 +10,7 @@ export default function searchResults() {
     const data = result.json()
 
   }
-  <ChildComponent category={formData.category} />
+  // <ChildComponent category={formData.category} />
 
   async function getByCategory(){
     fetch(`/api/recipes/${category}`)

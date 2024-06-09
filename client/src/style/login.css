@@ -18,3 +18,8 @@
 #logForm {
    margin-left: 5vw;
 }
+
+.errorMessageLogin {
+   display: block;
+   width: 100%;
+}

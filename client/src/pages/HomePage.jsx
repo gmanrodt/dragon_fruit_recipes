@@ -16,18 +16,35 @@ export default function HomePage() {
 
     return (
         <>
-            {/* <div class="loader"></div> */}
             <div className='about'>
                 <p> Welcome to DragonFruit Delights! This is a page for finding new recipes and sharing your own. Log in or sign up to contribute to our cooking community! </p>
-
-          
             </div>
         
             <div className="recipe-card-container">
-                <RecipeCard/>
-                <RecipeCard/>
-                <RecipeCard/>
+
+                <div className='recipe-card'>
+                    <RecipeCard />
+                </div>
+                <div className='recipe-card'>
+                <RecipeCard />
+                </div>
+                <div className='recipe-card'>
+                <RecipeCard />
+                </div>
             </div>
+
+            {/*TO DO: Uncomment this section below when the commented out logic is uncommented and make sure details below match API details. */}
+
+            {/* <section className="w-25">
+                <BorderedBox>
+                    <h2>Featured Recipe</h2>
+                    <h3>{ featuredRecipe?.name }</h3>
+                    <p>Price: $ {featuredRecipe?.price} </p>
+                </BorderedBox>
+
+                <button onClick={getRandomRecipe}>New Featured Recipe</button>
+
+            </section> */}
         </>
     )
 

@@ -42,7 +42,6 @@ module.exports = {
 
   // Create recipe
   async createRecipe(req, res) {
-    console.log("here")
     console.log(req.body)
     try {
       const recipe = await Recipe.create(req.body);
@@ -125,17 +124,16 @@ module.exports = {
     };
   },
 
-
-async getByCategory(req, res){
-  const category = req.params.category;
-  try {
-    const recipe = await Recipe.findOne({ category: category });
-    if (!recipe) {
-      return res.status(404).send('Recipe not found');
+  // Get category recipe
+  async getByCategory(req, res){
+    try {
+      const recipe = await Recipe.find({ category: req.params.categoryId});
+      if (!recipe) {
+        return res.status(404).send('Recipe not found');
+      }
+      res.json({recipe: recipe, msg:"hello"});
+    } catch (err) {
+      res.status(500).send('Error finding recipe');
     }
-    res.json(recipe);
-  } catch (err) {
-    res.status(500).send('Error finding recipe');
   }
-}
 };

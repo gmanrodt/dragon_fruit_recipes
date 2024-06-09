@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useLocation } from "react";
-import { NavLink } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-import { Button, Form, FormGroup, FormLabel, FormControl } from 'react-bootstrap'
+import React, { useState } from "react";
+import ViewRecipes from "../componets/ViewRecipes"
+import { NavLink } from "react-router-dom";
 import '../style/createRecipe.css'
 
 export default function RecipeSearch() {
@@ -10,109 +9,73 @@ export default function RecipeSearch() {
         title: '',
         category: '',
     });
+    const [recipe, setRecipe] = useState([]);
+    const [errorMessage, setErrorMessage] = useState('');
 
     const handleChange = (e, fieldName) => {
         setFormData({
-          ...formData,
-          [fieldName]: e.target.value,
+            ...formData,
+            [fieldName]: e.target.value,
         });
-      };
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        try {
-            const response = await fetch('api/recipes', { //change stuff here
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                // body: JSON.stringify(formData)
-            });
-            if (response.ok) {
-                // Handle successful ,form submission
-                document.location.replace('/results')
-                console.log(response)
-                console.log('Form data submitted successfully');
-            } else{
-                console.log('problem')
-            }
-        } catch (error) {
-            console.error('An error occurred while submitting form data:', error);
-        }
+        fetch(`/api/recipes/category/${formData.category}`)
+        .then(response => response.json())
+        .then(data => {
+            setRecipe(data)
+        })
+        .catch(error => {
+            setErrorMessage("Failed to load recipes");
+            console.error('Error:', error);
+        });
     };
         
-        
-
-
-    const navigate = useNavigate();
-    useEffect(() => {
-        // Call navigate() inside the useEffect hook
-        navigate('/search');
-    }, []);
-    // const searchresult= Button.onClick(
-    //     document.location.replace('/searchresult')
-    // )
-
-    // const search = searchResult();
-
-    // useEffect(() => {
-    //     const fetchOneResult = async () => {
-    //         try {
-    //             const response = await fetch({
-    //                 method: 'GET',
-    //                 headers: {
-    //                     'Content-Type': 'application/json'
-    //                 }
-    //             });
-    //             if (response.ok) {
-    //                 console.log('git here')
-    //                 const responseData = await response.json();
-    //                 setData(responseData);
-    //             } else {
-    //                 console.error('Failed to fetch data');
-    //             }
-    //             } catch(error) {
-    //                 console.error('An error occured while fetching data:', error);
-    //             }
-    //         }
-    //     })
-        
-
 
         return (
             <>
-                <h2>Search Recipes</h2>
-                <div className="outer">
-                    <form onSubmit={handleSubmit}  className="border p-3 form formParent">
-                        <div className="firstThreeFields">
-                            <div className="search-b">
-                                <label htmlFor="title">Recipe Title: </label>
-                                <br/>
-                                <input type="text" placeholder="Please type Dish title" value={formData.title} onChange={(e) => handleChange(e, 'title')} />
-                            </div>
-                            <div className="search-b">
-                                <label>Search by Category: </label>
-                                <br/>
-                                <select id="dropdown-basic-button" title="Select Category" onChange={(e) => handleChange(e, 'category')} value={formData.category}>
-                                    <option value="beef">Beef</option>
-                                    <option value="volvo">Chicken</option>
-                                    <option value="volvo">Dessert</option>
-                                    <option value="volvo">Lamb</option>
-                                    <option value="volvo">Miscellaneous</option>
-                                    <option value="volvo">Pork</option>
-                                    <option value="volvo">Seafood</option>
-                                    <option value="volvo">Side</option>
-                                    <option value="volvo">Starter</option>
-                                    <option value="volvo">Vegan</option>
-                                    <option value="volvo">Vegetarian</option>
-                                    <option value="volvo">Breakfast</option>
-                                    <option value="volvo">Goat</option>
-                                </select >
-                            </div>
-                        </div>
-                        <button type="submit" variant="primary">Submit</button>
-                    </form>
+
+                <h3>Featured Recipes</h3>
+                <form onSubmit={handleSubmit}  className="border p-3 form">
+                    <label htmlFor="dropdown-basic-button">Search by Category: </label>
+                    <select id="dropdown-basic-button" title="Select Category" onChange={(e) => handleChange(e, 'category')} value={formData.category}>
+                        <option value="-- Select an option --">-- Select an option --</option>
+                        <option value="Beef">Beef</option>
+                        <option value="Breakfast">Breakfast</option>
+                        <option value="Chicken">Chicken</option>
+                        <option value="Dessert">Dessert</option>
+                        <option value="Goat">Goat</option>
+                        <option value="Lamb">Lamb</option>
+                        <option value="Miscellaneous">Miscellaneous</option>
+                        <option value="Pork">Pork</option>
+                        <option value="Seafood">Seafood</option>
+                        <option value="Side">Side</option>
+                        <option value="Starter">Starter</option>
+                        <option value="Vegan">Vegan</option>
+                        <option value="Vegetarian">Vegetarian</option>
+                    </select >
+                    <button type="submit" variant="primary">Submit</button>
+                </form>
+                <div>
+                <div className="bodyWidth">
+                    {recipe.recipe ? (
+                        recipe.recipe.map((rec, i) => (
+                            <NavLink to={`/recipe/${rec._id}`} key={i}>
+                                <div className="allRecipeCard" key={`${i}`}>
+                                    <h2>{rec.title}</h2>
+                                    <h3>{rec.category}</h3>
+                                    <img src={rec.picture} alt="random recipe" className="recipeImageReSize" />
+                                </div>
+                            </NavLink>
+                        ))
+                    ) : (
+                        <ViewRecipes />
+                    )}
+                    {errorMessage && <p>{errorMessage}</p>}
+                    </div>
+
+
                 </div>
             </>
     )

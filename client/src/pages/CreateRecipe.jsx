@@ -1,34 +1,35 @@
-import React, { useState, useEffect, useLocation } from "react"
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect, useLocation } from "react"
+import { useNavigate, NavLink } from 'react-router-dom';
 import { useAppContext } from "../providers/AppProvider";
 import AddFormFields from "../componets/AddFormFields";
 import '../style/createRecipe.css'
-import { NavLink } from "react-router-dom";
+
 export default function CreateRecipe() {
 
     const { currentUser } = useAppContext()
-
+    const [inputIngredient, setInputIngredient] = useState([]);
     const [formData, setFormData] = useState({
         title: '',
         category: '',
         instructions: '',
-        ingredients: '',
-        measurements: ''
+        ingredients: [],
+        measurements: [],
+        picture: ''
     });
 
     const handleChange = (e, fieldName) => {
         setFormData({
-          ...formData,
-          [fieldName]: e.target.value,
+            ...formData,
+            [fieldName]: e.target.value,
         });
-      };
+    };
 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            const response = await fetch(`/api/users/${currentUser._id}`, { //change stuff here
+            const response = await fetch(`/api/users/${currentUser._id}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -49,19 +50,11 @@ export default function CreateRecipe() {
         }
     };
 
-
-    const navigate = useNavigate();
-    useEffect(() => {
-        // Call navigate() inside the useEffect hook
-        navigate('/create');
-    }, []);
-
-    const [inputIngredient, setInputIngredient] = useState([]);
-
     const addFields = (event) => {
         event.preventDefault();
         setInputIngredient([...inputIngredient, <AddFormFields key={inputIngredient.length} />]);
     }
+
 
     return (
         <>
@@ -75,22 +68,22 @@ export default function CreateRecipe() {
                             <input type="text" placeholder="Please type Dish title" value={formData.title} onChange={(e) => handleChange(e, 'title')} />
                         </div>
                         <div className="top-row">
-                            <label htmlFor="category">Category: </label>
+                            <label htmlFor="dropdown-basic-button">Category: </label>
                             <br/>
                             <select id="dropdown-basic-button" title="Select Category" value={formData.category} onChange={(e) => handleChange(e, 'category')} >
-                                <option value="beef">Beef</option>
-                                <option value="volvo">Chicken</option>
-                                <option value="volvo">Dessert</option>
-                                <option value="volvo">Lamb</option>
-                                <option value="volvo">Miscellaneous</option>
-                                <option value="volvo">Pork</option>
-                                <option value="volvo">Seafood</option>
-                                <option value="volvo">Side</option>
-                                <option value="volvo">Starter</option>
-                                <option value="volvo">Vegan</option>
-                                <option value="volvo">Vegetarian</option>
-                                <option value="volvo">Breakfast</option>
-                                <option value="volvo">Goat</option>
+                                <option value="Beef">Beef</option>
+                                <option value="Breakfast">Breakfast</option>
+                                <option value="Chicken">Chicken</option>
+                                <option value="Dessert">Dessert</option>
+                                <option value="Goat">Goat</option>
+                                <option value="Lamb">Lamb</option>
+                                <option value="Miscellaneous">Miscellaneous</option>
+                                <option value="Pork">Pork</option>
+                                <option value="Seafood">Seafood</option>
+                                <option value="Side">Side</option>
+                                <option value="Starter">Starter</option>
+                                <option value="Vegan">Vegan</option>
+                                <option value="Vegetarian">Vegetarian</option>
                             </select >
                         </div>
                         <div className="top-row">
@@ -111,6 +104,4 @@ export default function CreateRecipe() {
             </div>
         </>
     )
-
-
 }

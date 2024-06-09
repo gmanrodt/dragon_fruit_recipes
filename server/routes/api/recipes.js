@@ -19,7 +19,11 @@ const {
 router
   .route("/")
   .get(getRecipes)
-  .post(databaseRecipes)
+  .post(databaseRecipes);
+
+  // Category route
+router
+  .route("/category/:categoryId")
   .get(getByCategory);
 
 // Single route

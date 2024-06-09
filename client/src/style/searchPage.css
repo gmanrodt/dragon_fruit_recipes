@@ -1,4 +1,45 @@
-/* .form{
+.singleRecipePage {
+    margin-top: 20px;
+    border: 2px solid hsl(335, 86%, 37%);
+    border-radius: 30px;
     display: flex;
-    align-items: center;
-} */
+    flex-direction: column;
+    position: relative;
+}
+
+.singleRecipePage h1 {
+    margin-bottom: 0;
+}
+
+.singleImageSrc {
+    margin: 0 auto;
+    width: 20rem;
+    border-radius: 30px;
+}
+
+.singleInstructions {
+    width: 75%;
+    text-align: center;
+    margin: 20px auto;
+    border: 2px solid hsl(335, 86%, 37%);
+    border-radius: 30px;
+    padding: 12px;
+}
+
+.singleInstructions span {
+    color: hsl(335, 86%, 37%);
+}
+
+.ingMeasBox {
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    justify-content: center;
+}
+
+.ingMeas {
+    width: 36rem;
+    border: 2px solid hsl(335, 86%, 37%);
+    border-radius: 15px;
+    padding: 12px;
+}

@@ -1,18 +1,18 @@
-// TO DO: import API content
-
-// TO DO: check that these match what we want to display of the API
 import { NavLink } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
-import SingleRecipePage from '../pages/SingleRecipePage'
 
 export default function RecipeCard() {
     const [recipe, setRecipe] = useState(null);
     const [errorMessage, setErrorMessage] = useState('');
 
+    function getRandomNumber(array){
+        return Math.floor(Math.random() * (array.length))
+    }
+
     useEffect(() => {
-        fetch("https://www.themealdb.com/api/json/v1/1/random.php")
+        fetch("/api/recipes")
             .then(response => response.json())
-            .then(data => setRecipe(data.meals[0]))
+            .then(data => setRecipe(data[`${getRandomNumber(data)}`]))
             .catch(error => {
                 setErrorMessage("Failed to fetch random recipe");
                 console.error('Error:', error);
@@ -23,12 +23,12 @@ export default function RecipeCard() {
      
         <div className="randomRecipeCard recipe-card">
             {recipe ? (
-                <>
-                 <NavLink to='/recipe'> 
-                    <h2>{recipe.strMeal}</h2>
-                    <img src={recipe.strMealThumb} alt="random recipe" className="recipeImg"/>
-                   </NavLink>
-                </>
+
+                <NavLink to={`/recipe/${recipe._id}`}> 
+                <h2>{recipe.title}</h2>
+                <img src={recipe.picture} alt="random recipe" className="recipeImageReSize"/>
+                </NavLink>
+
             ) : (
                 <p>Loading...</p>
             )}

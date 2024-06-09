@@ -2,6 +2,7 @@
 const Recipe = require("../models/Recipe");
 const Review = require("../models/Review");
 const User = require("../models/User");
+const Ingredient = require("../models/Ingredient");
 
 // Exporting
 module.exports = {
@@ -44,7 +45,15 @@ module.exports = {
   async createRecipe(req, res) {
     console.log(req.body)
     try {
-      const recipe = await Recipe.create(req.body);
+      var cleanRecipe = {...req.body};
+      cleanRecipe.ingredients = [];
+      const recipe = await Recipe.create(cleanRecipe);
+      for (let i = 0; i < req.body.ingredients.length; i++) {
+        const ingredient = await Ingredient.create(req.body.ingredients[i]);
+        recipe.ingredients.push(ingredient._id);
+      }
+      await recipe.save();
+
       const user = await User.findOneAndUpdate(
         { _id: req.params.userId },
         { $addToSet: { createdRecipes: recipe._id } },

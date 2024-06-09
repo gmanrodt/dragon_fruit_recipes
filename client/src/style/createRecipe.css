@@ -30,12 +30,12 @@
 .ingredientList {
     display: flex;
     justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
     padding: 20px;
 }
 
 .rowStyling {
-    display: flex;
-    flex-direction: column;
     align-items: center;
 }
 

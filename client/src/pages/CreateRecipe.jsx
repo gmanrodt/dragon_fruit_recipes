@@ -15,18 +15,24 @@ export default function CreateRecipe() {
         title: '',
         category: '',
         instructions: '',
-        ingredients: [],
-        measurements: [],
+        ingredients: [{name:"", measurement:""}],
         picture: ''
     });
 
     const handleChange = (e, fieldName) => {
-        setFormData({
-            ...formData,
-            [fieldName]: e.target.value,
-        });
+            setFormData({
+                ...formData,
+                [fieldName]: e.target.value,
+            });
     };
 
+    const handleIngredientChange = (e, fieldName, index) => {
+        console.log("Ingredient change", e.target.value);
+        console.log("Ingredient change", fieldName);
+        setFormData({
+            ...formData});
+        formData.ingredients[index][fieldName] = e.target.value;
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -60,8 +66,11 @@ export default function CreateRecipe() {
     };
 
     const addFields = (event) => {
-        event.preventDefault();
-        setInputIngredient([...inputIngredient, <AddFormFields key={inputIngredient.length} />]);
+         event.preventDefault();
+         var newIngredient = {name:"", measurement:""};
+         formData.ingredients.push(newIngredient);
+            setFormData({
+                ...formData});
     }
 
 
@@ -103,9 +112,14 @@ export default function CreateRecipe() {
                         </div>
                     </div>
                     <div className="ingredientList">
-                        <div className="rowStyling">
-                            {inputIngredient}
-                        </div>
+                        {formData.ingredients.map((ingredient, index) => (
+                        <div className="rowStyling" key={index}>
+                            <label htmlFor="ingredients">Ingredient: </label>
+                            <input type="text" className="amFormInput" placeholder="Add Ingredient" value={ingredient.name} onChange={(e) => handleIngredientChange(e, 'name', index)}  />
+
+                            <label htmlFor="measurements">Measurement: </label>
+                            <input type="text" className="amFormInput" placeholder="Add Measurement" value={ingredient.measurement} onChange={(e) => handleIngredientChange(e, 'measurement', index)}/>
+                        </div>))}
                     </div>
                     <button onClick={addFields} className="addIngredientButton">Add Another Ingredient</button>
                     <br/>

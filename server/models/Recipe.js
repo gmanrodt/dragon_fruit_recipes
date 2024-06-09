@@ -18,21 +18,15 @@ const recipeSchema = new Schema(
 			type: String,
 			required: true
 		},
-		ingredients: {
-			type: [String],
-			required: true
-		},
-		measurements: {
-			type: [String],
-			required: true
-		},
+		ingredients: [{type: Schema.Types.ObjectId, ref: 'Ingredient'}],
 		picture: {
 			type: String,
 		},
 		reviews: [{
-      type: Schema.Types.ObjectId,
-      ref: "review",
-    }],
+      		type: Schema.Types.ObjectId,
+      		ref: "review",
+    	}],
+		
 	},
 	{
 		id: false,

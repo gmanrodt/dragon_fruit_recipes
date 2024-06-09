@@ -26,10 +26,10 @@ export default function HomePage() {
                     <RecipeCard />
                 </div>
                 <div className='recipe-card'>
-                <RecipeCard />
+                    <RecipeCard />
                 </div>
                 <div className='recipe-card'>
-                <RecipeCard />
+                    <RecipeCard />
                 </div>
             </div>
 

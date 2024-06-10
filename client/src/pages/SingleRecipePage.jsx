@@ -6,6 +6,9 @@ import "../style/searchPage.css"
 
 export default function SingleRecipe() {
 
+    const [message, setMessage] = useState("");
+    const [errorMessage, setErrorMessage] = useState('');
+    
     const params = useParams()
     const [recipe, setRecipe] = useState()
     const [formData, setFormData] = useState({

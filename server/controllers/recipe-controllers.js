@@ -2,7 +2,6 @@
 const Recipe = require("../models/Recipe");
 const Review = require("../models/Review");
 const User = require("../models/User");
-const Ingredient = require("../models/Ingredient");
 
 // Exporting
 module.exports = {
@@ -21,10 +20,12 @@ module.exports = {
   async getRecipe(req, res) {
     try {
       const recipe = await Recipe.findOne({ _id: req.params.recipeId })
+        //.populate({ path: "ingredients" })
         .populate({ path: "reviews" });
       if (!recipe) {
         return res.status(404).json({ msg: "No recipe found with that ID" });
       };
+
       res.status(200).json(recipe);
     } catch (err) {
       res.status(500).json({ msg: "Get recipe: " + err.message });
@@ -45,15 +46,7 @@ module.exports = {
   async createRecipe(req, res) {
     console.log(req.body)
     try {
-      var cleanRecipe = {...req.body};
-      cleanRecipe.ingredients = [];
-      const recipe = await Recipe.create(cleanRecipe);
-      for (let i = 0; i < req.body.ingredients.length; i++) {
-        const ingredient = await Ingredient.create(req.body.ingredients[i]);
-        recipe.ingredients.push(ingredient._id);
-      }
-      await recipe.save();
-
+      const recipe = await Recipe.create(req.body);
       const user = await User.findOneAndUpdate(
         { _id: req.params.userId },
         { $addToSet: { createdRecipes: recipe._id } },

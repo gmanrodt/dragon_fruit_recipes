@@ -92,6 +92,23 @@ module.exports = {
     };
   },
 
+    // Delete save recipe
+    async deleteSavedRecipe(req, res) {
+      try {
+        const user = await User.findOneAndUpdate(
+          { _id: req.params.userId },
+          { $pull: { savedRecipes: req.params.savedId } },
+          { runValidators: true, new: true }
+        );
+        if (!user) {
+          return res.status(404).json({ msg: "No recipe found with that ID" });
+        };
+        res.status(200).json({ msg: "recipe successfully deleted" })
+      } catch (err) {
+        res.status(500).json({ msg: "Delete saved recipe: " + err.message });
+      };
+    },
+
   // Get category recipe
   async getByCategory(req, res){
     try {

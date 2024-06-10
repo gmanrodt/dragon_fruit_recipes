@@ -74,7 +74,8 @@ export default function AuthPage() {
                 setMessage("Login successful");
                 window.location.href = "/user";
             } else {
-                throw new Error()
+                console.log(result.msg);
+                setErrorMessage("We could not log you in with the credentials provided");
             }
         } catch(err){
             console.log(err)

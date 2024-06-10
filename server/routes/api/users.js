@@ -12,6 +12,7 @@ const {
   deleteUser,
   loginUser,
   verifyUser,
+  saveRecipe,
   deleteAll
 } = require("../../controllers/user-controllers");
 const {
@@ -54,7 +55,9 @@ router
 router
   .route("/:userId/saved")
   .get(getSaves)
-
+  .post(saveRecipe)
+  .delete(deleteSavedRecipe);
+  
 // All created route
 router
   .route("/:userId/created")

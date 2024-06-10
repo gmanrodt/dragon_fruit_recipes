@@ -27,7 +27,8 @@ const recipeSchema = new Schema(
 			required: true
 		},
 		picture: {
-			type: String,
+			data: Buffer,
+      contentType: String
 		},
 		reviews: [{
       type: Schema.Types.ObjectId,
@@ -45,3 +46,4 @@ const Recipe = new model("recipe", recipeSchema);
 
 // Exporting model
 module.exports = Recipe;
+

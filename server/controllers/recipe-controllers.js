@@ -61,23 +61,6 @@ module.exports = {
     };
   },
 
-  // Create saved recipe
-  async saveRecipe(req, res) {
-    try {
-      const user = await User.findOneAndUpdate(
-        { email: req.body.email },
-        { $addToSet: { savedRecipes: req.params.recipeId } },
-        { runValidators: true, new: true }
-      );
-      if (!user) {
-        return res.status(404).json({ msg: 'No user with that ID' });
-      };
-      res.status(200).json(user);
-    } catch (err) {
-      res.status(500).json({ msg: "Create saved recipe: " + err.message });
-    };
-  },
-
   // Update created recipe
   async updateCreatedRecipe(req, res) {
     try {
@@ -92,23 +75,6 @@ module.exports = {
       res.status(200).json(recipe);
     } catch (err) {
       res.status(500).json({ msg: "Update created recipe: " + err.message });
-    };
-  },
-
-  // Delete save recipe
-  async deleteSavedRecipe(req, res) {
-    try {
-      const user = await User.findOneAndUpdate(
-        { _id: req.params.userId },
-        { $pull: { savedRecipes: req.params.savedId } },
-        { runValidators: true, new: true }
-      );
-      if (!user) {
-        return res.status(404).json({ msg: "No recipe found with that ID" });
-      };
-      res.status(200).json({ msg: "recipe successfully deleted" })
-    } catch (err) {
-      res.status(500).json({ msg: "Delete saved recipe: " + err.message });
     };
   },
 

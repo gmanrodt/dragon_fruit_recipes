@@ -70,7 +70,7 @@ export default function AuthPage() {
             const result = await response.json()
             console.log(result)
             clearForms()
-            if( result.status === 'success' ){
+            if(!result.msg ){
                 setMessage("Login successful");
                 window.location.href = "/user";
             } else {
